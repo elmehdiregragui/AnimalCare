@@ -1,4 +1,4 @@
-# ADR-001 — Adoption de l’architecture MVC et du pattern Repository
+# ADR — Adoption de l’architecture MVC et du pattern Repository
 
 Statut : Accepted  
 Date : 2026-19-02
