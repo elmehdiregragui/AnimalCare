@@ -1,6 +1,5 @@
 # Software Requirements Specification (SRS)
 ## Projet : Site web de clinique vétérinaire
-
 ---
 
 ## 1. Introduction
