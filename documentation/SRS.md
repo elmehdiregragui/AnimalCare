@@ -1,12 +1,55 @@
 # Software Requirements Specification (SRS)
-
-## 1. Introduction
-
-Ce document décrit les exigences du système AnimalCare, une application web de gestion d’une clinique vétérinaire.
+## Projet : Site web de clinique vétérinaire
 
 ---
 
-## 2. Exigences Fonctionnelles (FR)
+## 1. Introduction
+Ce document décrit les exigences du site web de clinique vétérinaire
+développé dans le cadre du cours Software Engineering. Le système vise
+à soutenir la gestion des rendez-vous, des animaux, des propriétaires
+et des vétérinaires.
+
+---
+
+## 2. Objectif du système
+L’objectif principal du système est de fournir une plateforme web
+permettant une gestion centralisée et efficace des activités d’une
+clinique vétérinaire.
+
+---
+
+## 3. Utilisateurs du système
+- Administrateur : gestion globale du système
+- Réceptionniste : gestion des rendez-vous et coordination des horaires
+- Vétérinaire : consultation des rendez-vous et du planning
+- Client / Propriétaire : consultation et prise de rendez-vous
+
+---
+
+## 4. Fonctionnalités principales
+- Gestion des rendez-vous vétérinaires
+- Gestion des animaux
+- Gestion des propriétaires
+- Gestion des vétérinaires
+- Gestion des horaires des vétérinaires
+- Consultation du planning
+
+---
+
+## 5. Limites du système
+Les fonctionnalités avancées telles que la facturation, les paiements
+en ligne et les notifications automatiques ne sont pas incluses dans
+cette première version du système.
+
+---
+
+## 6. Contraintes
+- Projet académique
+- Application web
+- Respect des bonnes pratiques de génie logiciel
+- Développement progressif selon les phases du cours
+
+## 7. Exigences Fonctionnelles (FR)
 
 FR-01 : Le système doit permettre à la réceptionniste de créer, modifier et annuler un rendez-vous.
 
@@ -20,7 +63,7 @@ FR-05 : L’administrateur doit pouvoir gérer les comptes utilisateurs (créati
 
 ---
 
-## 3. Exigences Non Fonctionnelles (NFR)
+## 8. Exigences Non Fonctionnelles (NFR)
 
 NFR-01 : Authentification basée sur les rôles.
 
@@ -34,7 +77,7 @@ NFR-05 : Respect d’une architecture MVC avec séparation des responsabilités.
 
 ---
 
-## 4. Périmètre (Exclusions)
+## 9. Périmètre (Exclusions)
 
 Le système ne comprend pas :
 
