@@ -88,8 +88,3 @@ l’architecture.
   - Le prototype répond aux besoins de base
 
 ---
-
-## 8. Liens
-- UML : à venir (Phase II)  
-- Issue/Tâche : non applicable  
-- Référence : Cours Software Engineering
