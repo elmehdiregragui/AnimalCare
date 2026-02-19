@@ -60,3 +60,9 @@ Exclusions ajoutées :
 - Dossier médical complet avancé
 
 Cela permet de mieux cadrer le projet dans un contexte académique.
+
+---
+
+## Conclusion
+
+Les modifications apportées permettent de transformer le SRS initial en un document structuré, testable et exploitable pour le pilotage du projet, conformément aux exigences du cours.
