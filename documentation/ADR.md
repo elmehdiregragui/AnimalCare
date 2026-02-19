@@ -1,126 +1,95 @@
-# ADR — Adoption de l’architecture MVC et du pattern Repository
+# Architecture Decision Records  
+ADR-001 — Choix du type d’application
 
-Statut : Accepted  
-Date : 2026-19-02
-Décideurs : Elmehdi Regragui et Aya Chahid 
-Contexte projet : Application web de gestion d’une clinique vétérinaire (AnimalCare)
+**Statut :** Accepted  
+**Date :** 2026-01-22  
+**Décideurs :** Équipe du projet  
+**Contexte projet :** Site web de clinique vétérinaire
 
 ---
 
 ## 1. Contexte
+- **Problème / besoin :**  
+La clinique vétérinaire doit gérer plusieurs types d’utilisateurs
+(administrateur, réceptionniste, vétérinaire, client) ayant besoin
+d’un accès simple et centralisé au système.
 
-### Problème / besoin
+- **Contraintes :**  
+Projet académique avec un temps limité, nécessité d’une solution accessible sans installation complexe.
 
-Le projet AnimalCare nécessite une architecture claire permettant :
-
-- La séparation entre l’interface utilisateur, la logique métier et l’accès aux données
-- Une maintenance facilitée
-- Une évolution progressive du système
-
-### Contraintes
-
-- Projet académique
-- Temps limité
-- Utilisation obligatoire d’ASP.NET Core
-- Base de données SQL Server
-
-### Forces en présence
-
-- Simplicité d’implémentation
-- Maintenabilité
-- Respect des bonnes pratiques de génie logiciel
-- Testabilité
+- **Forces en présence :**  
+Simplicité d’accès, maintenabilité, évolutivité et clarté de
+l’architecture.
 
 ---
 
 ## 2. Décision
+> Le système sera développé sous forme d’une application web.
 
-Nous choisissons d’utiliser l’architecture ASP.NET Core MVC combinée avec le pattern Repository.
-
-Pour :
-
-- Séparer clairement les responsabilités
-- Réduire le couplage entre la logique métier et la base de données
-- Améliorer la lisibilité et l’organisation du code
+- Je choisis : une application web  
+- Pour : permettre un accès facile et centralisé à tous les utilisateurs
 
 ---
 
 ## 3. Alternatives considérées
 
-### Option A — Architecture monolithique sans séparation claire
+### Option A — Application desktop
+- **Avantages :**  
+  - Performances locales  
+- **Inconvénients :**  
+  - Installation sur chaque poste  
+  - Maintenance plus complexe
 
-Avantages :
-- Implémentation rapide
-- Moins de fichiers
-
-Inconvénients :
-- Code difficile à maintenir
-- Couplage fort entre les composants
-- Peu évolutif
-
----
-
-### Option B — Architecture en couches (MVC + Repository)
-
-Avantages :
-- Séparation des responsabilités
-- Meilleure organisation
-- Code plus testable
-- Respect des principes SOLID
-
-Inconvénients :
-- Structure plus complexe
-- Légèrement plus longue à mettre en place
+### Option B — Application web
+- **Avantages :**  
+  - Accessible depuis un navigateur  
+  - Aucune installation requise  
+  - Facilité de mise à jour
+- **Inconvénients :**  
+  - Dépendance à une connexion internet
 
 ---
 
-## 4. Justification
-
-Cette décision permet :
-
-- Une meilleure évolutivité du système
-- Une maintenance plus simple
-- Une meilleure compréhension du projet par les membres de l’équipe
-- Le respect des bonnes pratiques en génie logiciel
+## 4. Justification (Pourquoi cette décision ?)
+- Accès simple pour tous les rôles utilisateurs  
+- Maintenance et déploiement facilités  
+- Adapté aux contraintes du projet académique
 
 ---
 
 ## 5. Conséquences
 
 ### Positives
-
-- Code structuré
-- Responsabilités bien définies
-- Réduction du couplage
+- Centralisation des données  
+- Accès multiplateforme  
+- Évolution facilitée du système
 
 ### Négatives / Risques
-
-- Complexité légèrement plus élevée
-- Nécessite une bonne organisation
+- Dépendance à la connexion internet  
+- Sécurité à prendre en compte dès les phases suivantes
 
 ### Impact sur l’architecture / le code
-
-- Utilisation de Controllers
-- Séparation Models / Services / Data Access
-- Introduction d’un Repository pour la gestion des données
+- Mise en place d’une architecture en couches  
+- Séparation entre interface web, logique métier et données
 
 ---
 
-## 6. Plan d’implémentation
-
-- Étape 1 : Création de la structure MVC
-- Étape 2 : Mise en place du DbContext
-- Étape 3 : Implémentation des Repositories
-- Étape 4 : Implémentation des Controllers
+## 6. Plan d’implémentation (court)
+-  Définir l’architecture générale  
+-  Identifier les rôles et permissions  
+-  Implémenter un prototype web simple
 
 ---
 
 ## 7. Validation
-
-La décision est validée si :
-
-- Les Controllers ne contiennent pas d’accès direct à la base de données
-- Les opérations CRUD passent par une couche Repository
-- L’application respecte la séparation des responsabilités
+- **Comment vérifier que c’est bon ?**
+  - Le système est accessible via un navigateur  
+  - Les rôles utilisateurs sont clairement définis  
+  - Le prototype répond aux besoins de base
 
 ---
+
+## 8. Liens
+- UML : à venir (Phase II)  
+- Issue/Tâche : non applicable  
+- Référence : Cours Software Engineering
