@@ -1,8 +1,8 @@
 # ADR-001 — Adoption de l’architecture MVC et du pattern Repository
 
 Statut : Accepted  
-Date : 2025-12-XX  
-Décideurs : Équipe AnimalCare  
+Date : 2026-19-02
+Décideurs : Elmehdi Regragui et Aya Chahid 
 Contexte projet : Application web de gestion d’une clinique vétérinaire (AnimalCare)
 
 ---
@@ -124,9 +124,3 @@ La décision est validée si :
 - L’application respecte la séparation des responsabilités
 
 ---
-
-## 8. Liens
-
-UML : documentation/composants.png  
-Issue/Tâche : Gestion des patients  
-Référence : Cours de génie logiciel – Design Patterns & Architecture
