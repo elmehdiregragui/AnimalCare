@@ -11,11 +11,10 @@ Nous avons ajouté une section "Documentation" dans le README avec des liens dir
 
 Cela permet d’ouvrir les documents principaux en un seul clic, sans navigation complexe dans les dossiers.
 
----
 
 ### 2. Transformation des fonctionnalités en exigences fonctionnelles (FR)
 
-La simple liste des fonctionnalités a été restructurée sous forme d’exigences fonctionnelles testables (FR), numérotées et formulées clairement.
+La simple liste des fonctionnalités a été restructurée sous forme d’exigences fonctionnelles testables.
 
 Exemples :
 
@@ -32,9 +31,9 @@ Pour chaque exigence fonctionnelle, nous avons ajouté :
 
 Cela permet de rendre le SRS pilotable et vérifiable.
 
----
 
-### 3. Ajout d’exigences non fonctionnelles (NFR) mesurables
+
+### 3. Ajout d’exigences non fonctionnelles (NFR)
 
 Nous avons ajouté des exigences non fonctionnelles concrètes, notamment :
 
@@ -46,7 +45,6 @@ Nous avons ajouté des exigences non fonctionnelles concrètes, notamment :
 
 Ces NFR permettent d’encadrer la qualité globale du système.
 
----
 
 ### 4. Clarification du périmètre (IN / OUT)
 
