@@ -22,7 +22,6 @@ FR-01 : Le système doit permettre à la réceptionniste de créer, modifier et 
 FR-02 : Le système doit vérifier la disponibilité du vétérinaire avant de confirmer un rendez-vous.  
 FR-03 : Le système doit permettre d’associer un animal à un propriétaire.  
 FR-04 : Le vétérinaire doit pouvoir consulter son planning par jour et par semaine.  
-FR-05 : L’administrateur doit pouvoir gérer les comptes utilisateurs (création, activation/désactivation, gestion des rôles).
 
 Pour chaque exigence fonctionnelle, nous avons ajouté :
 - Les règles métier
