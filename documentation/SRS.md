@@ -192,7 +192,7 @@ Le processus de création d’un rendez-vous doit être simple et rapide.
 **Contraintes :**
 
 - Interface claire.
-- Navigation intuitive.
+- Navigation fluide.
 
 **Critères de validation :**
 
