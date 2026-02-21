@@ -86,7 +86,6 @@ Ce diagramme illustre :
 - La séparation des responsabilités entre interface, logique métier et données  
 - La communication via HTTP entre le client et le serveur  
 - L’isolation des services métiers  
-- L’utilisation d’un DbContext pour la gestion des données  
 
 Cela permet de démontrer le respect des exigences non fonctionnelles liées à la qualité du code et à l’architecture en couches (MVC).
 
