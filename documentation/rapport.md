@@ -67,181 +67,120 @@ Cela permet de mieux cadrer le projet dans un contexte académique.
 
 Les modifications apportées permettent de transformer le SRS initial en un document structuré, testable et exploitable pour le pilotage du projet, conformément aux exigences du cours.
 
-8. Explication des diagrammes
-8.1 Diagramme de composants
+### 8. Ajout et clarification des diagrammes
 
-Le diagramme de composants présente l’architecture générale du système AnimalCare.
-Il permet de visualiser la séparation des différentes couches du système ainsi que leurs interactions.
+Afin de renforcer la compréhension technique du système AnimalCare, nous avons ajouté et détaillé les diagrammes suivants :
 
-L’architecture adoptée est une architecture en couches basée sur ASP.NET Core MVC, composée de :
+---
 
-Frontend
+### 5.1 Diagramme de composants
 
-Le frontend correspond au client web utilisant les Razor Views.
-Il permet aux utilisateurs (vétérinaire, réceptionniste, administrateur, propriétaire) d’interagir avec l’application via un navigateur web.
-Les requêtes sont transmises au backend via HTTP.
+Le diagramme de composants présente l’architecture globale du système.
 
-Backend
+Il met en évidence une architecture en couches composée de :
 
-Le backend repose sur ASP.NET Core MVC et contient :
+- Frontend (Razor Views)  
+- Backend (ASP.NET Core MVC)  
+- Data Access Layer (DbContext)  
+- Base de données SQL Server  
 
-La gestion de l’authentification et des rôles
+Ce diagramme illustre :
 
-Les services métiers (gestion des rendez-vous, animaux, horaires, utilisateurs)
+- La séparation des responsabilités entre interface, logique métier et données  
+- La communication via HTTP entre le client et le serveur  
+- L’isolation des services métiers  
+- L’utilisation d’un DbContext pour la gestion des données  
 
-La logique applicative
+Cela permet de démontrer le respect des exigences non fonctionnelles liées à la qualité du code et à l’architecture en couches (MVC).
 
-Cette couche applique les règles métier définies dans les exigences fonctionnelles (FR).
+---
 
-Data Access Layer
+### 5.2 Diagramme de cas d’utilisation
 
-La couche d’accès aux données (DbContext) assure la communication avec la base de données SQL Server.
-Elle permet :
-
-La lecture des données
-
-L’insertion
-
-La modification
-
-La suppression
-
-Cette séparation garantit une meilleure maintenabilité, évolutivité et conformité avec les exigences non fonctionnelles liées à la qualité du code.
-
-8.2 Diagramme de cas d’utilisation
-
-Le diagramme de cas d’utilisation illustre les interactions entre les différents acteurs et le système AnimalCare.
+Le diagramme de cas d’utilisation illustre les interactions entre les différents acteurs et le système.
 
 Les acteurs identifiés sont :
 
-Vétérinaire
+- Vétérinaire  
+- Réceptionniste  
+- Administrateur  
+- Propriétaire  
 
-Réceptionniste
+Chaque acteur dispose de permissions spécifiques selon son rôle.
 
-Administrateur
+Les principales fonctionnalités représentées sont :
 
-Propriétaire
+- Gestion des rendez-vous  
+- Gestion des disponibilités  
+- Gestion des utilisateurs  
+- Consultation des dossiers animaux  
+- Mise à jour des profils  
 
-Chaque acteur possède des droits spécifiques selon son rôle.
+Tous les cas d’utilisation incluent l’authentification, garantissant que seules les personnes autorisées peuvent accéder aux fonctionnalités du système.
 
-Tous les cas d’utilisation incluent l’authentification, ce qui garantit que seules les personnes autorisées peuvent accéder aux fonctionnalités.
+Ce diagramme permet de valider la cohérence entre les rôles définis et les exigences fonctionnelles (FR).
 
-Exemples :
+---
 
-Le vétérinaire peut :
+### 5.3 Diagramme de classes
 
-Consulter ses rendez-vous
+Le diagramme de classes décrit la structure interne du système et les relations entre les entités principales.
 
-Gérer ses disponibilités
+Les classes principales sont :
 
-Mettre à jour le dossier médical
+- Utilisateur  
+- Administrateur  
+- Réceptionniste  
+- Vétérinaire  
+- Propriétaire  
+- Animal  
+- RendezVous  
+- Horaire  
+- Historique  
 
-La réceptionniste peut :
+Les relations importantes incluent :
 
-Planifier les rendez-vous
+- Un propriétaire peut posséder plusieurs animaux (1..N)  
+- Un vétérinaire peut avoir plusieurs rendez-vous  
+- Un animal peut avoir plusieurs entrées d’historique  
+- Un rendez-vous est associé à un vétérinaire et à un animal  
 
-Gérer les informations des propriétaires
+Ce diagramme assure la cohérence entre le modèle objet et la structure de la base de données.
 
-Consulter les dossiers des animaux
+---
 
-L’administrateur peut :
+### 5.4 Diagramme de séquence – Gestion des rendez-vous
 
-Gérer les comptes utilisateurs
+Le diagramme de séquence représente le déroulement dynamique du processus de prise, modification et annulation d’un rendez-vous.
 
-Consulter les rapports
+Le scénario principal comprend :
 
-Le propriétaire peut :
+- Authentification de l’utilisateur  
+- Demande de rendez-vous  
+- Vérification des disponibilités du vétérinaire  
+- Proposition de créneaux disponibles  
+- Confirmation et création du rendez-vous  
 
-Gérer ses rendez-vous
+Des scénarios alternatifs sont également représentés :
 
-Consulter le dossier de son animal
-
-Mettre à jour son profil
-
-Ce diagramme démontre la séparation des responsabilités et le respect de la gestion des rôles définie dans les exigences fonctionnelles.
-
-8.3 Diagramme de classes
-
-Le diagramme de classes représente la structure interne du système et les relations entre les entités principales.
-
-La classe principale est Utilisateur, qui contient les attributs communs :
-
-IdUtilisateur
-
-Nom
-
-Prenom
-
-Email
-
-MotDePasse
-
-Les rôles spécifiques (Administrateur, Réceptionniste, Vétérinaire) sont associés à cette classe.
-
-Les principales classes métier sont :
-
-Propriétaire
-
-Animal
-
-RendezVous
-
-Horaire
-
-Historique
-
-Relations importantes :
-
-Un propriétaire peut posséder plusieurs animaux (relation 1..N).
-
-Un vétérinaire peut avoir plusieurs rendez-vous.
-
-Un animal peut avoir plusieurs entrées dans son historique médical.
-
-Un rendez-vous est associé à un vétérinaire et à un animal.
-
-Ce diagramme confirme la cohérence entre le modèle objet et la structure de la base de données.
-
-8.4 Diagramme de séquence – Gestion des rendez-vous
-
-Le diagramme de séquence illustre le déroulement dynamique du processus de prise de rendez-vous.
-
-Étapes principales :
-
-Le propriétaire s’authentifie.
-
-Il soumet une demande de rendez-vous.
-
-Le système vérifie la disponibilité du vétérinaire selon la date et l’heure demandées.
-
-Si des créneaux sont disponibles :
-
-Le système propose les créneaux
-
-Le propriétaire sélectionne un créneau
-
-Le rendez-vous est créé
-
-Une confirmation est envoyée
-
-Si aucun créneau n’est disponible :
-
-Le système propose des alternatives
-
-Le diagramme montre également les scénarios de modification par la réceptionniste et d’annulation par le propriétaire.
+- Modification par la réceptionniste  
+- Annulation par le propriétaire  
+- Indisponibilité et proposition d’alternatives  
 
 Ce diagramme permet de valider le respect des exigences fonctionnelles liées à la gestion des rendez-vous (FR-01 et FR-02).
 
-Conclusion des diagrammes
+---
 
-Les diagrammes présentés permettent de :
+## Conclusion
 
-Visualiser l’architecture technique du système
+Les modifications apportées permettent de transformer le SRS initial en un document structuré, testable et exploitable pour le pilotage du projet, conformément aux exigences du cours.
 
-Définir clairement les interactions entre les acteurs et l’application
+L’ajout des diagrammes renforce la cohérence entre :
 
-Structurer les entités et leurs relations
+- Les exigences fonctionnelles (FR)  
+- Les exigences non fonctionnelles (NFR)  
+- L’architecture logicielle  
+- Le modèle de données  
+- Les scénarios métier  
 
-Illustrer le fonctionnement dynamique des processus clés
-
-Ils assurent la cohérence entre les exigences fonctionnelles, l’architecture logicielle et le modèle de données.
+Le document est désormais complet, structuré et conforme aux attentes académiques.
