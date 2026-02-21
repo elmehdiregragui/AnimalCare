@@ -61,7 +61,6 @@ Exclusions ajoutées :
 
 Cela permet de mieux cadrer le projet dans un contexte académique.
 
----
 
 ## Conclusion
 
@@ -71,7 +70,6 @@ Les modifications apportées permettent de transformer le SRS initial en un docu
 
 Afin de renforcer la compréhension technique du système AnimalCare, nous avons ajouté et détaillé les diagrammes suivants :
 
----
 
 ### 5.1 Diagramme de composants
 
