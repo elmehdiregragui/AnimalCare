@@ -70,7 +70,6 @@ cette première version du système.
 - Vétérinaire indisponible
 
 
----
 
 ### FR-02 : Le système doit vérifier la disponibilité du vétérinaire avant confirmation d’un rendez-vous.
 
@@ -91,8 +90,6 @@ cette première version du système.
 - Aucun créneau disponible
 - Chevauchement avec un autre rendez-vous
 
-
----
 
 ### FR-03 : Le système doit permettre d’associer un animal à un propriétaire.
 
@@ -115,7 +112,7 @@ cette première version du système.
 - Tentative de duplication d’un animal déjà enregistré
 
 
----
+
 
 ### FR-04 : Le vétérinaire doit pouvoir consulter son planning par jour et par semaine.
 
@@ -149,7 +146,7 @@ NFR-04 : Création d’un rendez-vous en maximum 4 étapes.
 
 NFR-05 : Respect d’une architecture MVC avec séparation des responsabilités.
 
----
+
 
 ## 9. Périmètre (Exclusions)
 
