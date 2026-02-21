@@ -1,13 +1,11 @@
 # Software Requirements Specification (SRS)
 ## Projet : Site web de clinique vétérinaire
 
-
 ## 1. Introduction
 Ce document décrit les exigences du site web de clinique vétérinaire
 développé dans le cadre du cours Software Engineering. Le système vise
 à soutenir la gestion des rendez-vous, des animaux, des propriétaires
 et des vétérinaires.
-
 
 
 ## 2. Objectif du système
@@ -32,19 +30,13 @@ clinique vétérinaire.
 - Consultation du planning
 
 
-## 5. Limites du système
-Les fonctionnalités avancées telles que la facturation, les paiements
-en ligne et les notifications automatiques ne sont pas incluses dans
-cette première version du système.
-
-
-## 6. Contraintes
+## 5. Contraintes
 - Projet académique
 - Application web
 - Respect des bonnes pratiques de génie logiciel
 - Développement progressif selon les phases du cours
 
-## 7. Exigences Fonctionnelles (FR)
+## 6. Exigences Fonctionnelles (FR)
 
 ### FR-01 : Le système doit permettre à la réceptionniste de créer, modifier et annuler un rendez-vous.
 
@@ -134,7 +126,7 @@ cette première version du système.
 - Aucun rendez-vous planifié
 
 
-## 8. Exigences Non Fonctionnelles (NFR)
+## 7. Exigences Non Fonctionnelles (NFR)
 
 ### NFR-01 : Authentification basée sur les rôles.
 
@@ -231,7 +223,7 @@ Le système doit respecter une architecture en couches basée sur MVC.
 
 
 
-## 9. Périmètre (Exclusions)
+## 8. Périmètre (Exclusions)
 
 Le système ne comprend pas :
 
