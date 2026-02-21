@@ -114,7 +114,7 @@ cette première version du système.
 
 
 
-### FR-04 : Le vétérinaire doit pouvoir consulter son planning par jour et par semaine.
+### FR-04 : Le vétérinaire doit pouvoir consulter son planning .
 
 **Règles métier :**
 
