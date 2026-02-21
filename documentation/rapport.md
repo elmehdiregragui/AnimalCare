@@ -93,7 +93,7 @@ Ce diagramme illustre :
 
 Cela permet de démontrer le respect des exigences non fonctionnelles liées à la qualité du code et à l’architecture en couches (MVC).
 
----
+
 
 ### 5.2 Diagramme de cas d’utilisation
 
@@ -120,7 +120,7 @@ Tous les cas d’utilisation incluent l’authentification, garantissant que seu
 
 Ce diagramme permet de valider la cohérence entre les rôles définis et les exigences fonctionnelles (FR).
 
----
+
 
 ### 5.3 Diagramme de classes
 
@@ -147,7 +147,7 @@ Les relations importantes incluent :
 
 Ce diagramme assure la cohérence entre le modèle objet et la structure de la base de données.
 
----
+
 
 ### 5.4 Diagramme de séquence – Gestion des rendez-vous
 
@@ -169,7 +169,7 @@ Des scénarios alternatifs sont également représentés :
 
 Ce diagramme permet de valider le respect des exigences fonctionnelles liées à la gestion des rendez-vous (FR-01 et FR-02).
 
----
+
 
 ## Conclusion
 
