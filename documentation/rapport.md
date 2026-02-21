@@ -93,6 +93,7 @@ Cela permet de démontrer le respect des exigences non fonctionnelles liées à 
 
 
 ### 5.2 Diagramme de cas d’utilisation
+![Diagramme de cas d’utilisation](DiagrammeDeCasDutilisationAnimalCare.jpg)
 
 Le diagramme de cas d’utilisation illustre les interactions entre les différents acteurs et le système.
 
@@ -120,6 +121,7 @@ Ce diagramme permet de valider la cohérence entre les rôles définis et les ex
 
 
 ### 5.3 Diagramme de classes
+![Diagramme de classes](DiagrammeDeClasseAnimalCare.jpg)
 
 Le diagramme de classes décrit la structure interne du système et les relations entre les entités principales.
 
@@ -147,6 +149,7 @@ Ce diagramme assure la cohérence entre le modèle objet et la structure de la b
 
 
 ### 5.4 Diagramme de séquence – Gestion des rendez-vous
+![Diagramme de séquence](Diagramme de séquence.jpg)
 
 Le diagramme de séquence représente le déroulement dynamique du processus de prise, modification et annulation d’un rendez-vous.
 
