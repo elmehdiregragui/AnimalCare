@@ -4,7 +4,7 @@ Suite aux remarques reçues sur la première version du SRS, nous avons apporté
 
 ### 1. Amélioration de l’accès à la documentation
 
-Nous avons ajouté une section "Documentation" dans le README avec des liens directs vers :
+Nous avons ajouté une section le SRS et ADR dans le dossier "Documentation" avec des liens directs vers :
 
 - documentation/SRS.md  
 - documentation/ADR.md  
