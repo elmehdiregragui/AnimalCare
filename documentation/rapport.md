@@ -149,7 +149,7 @@ Ce diagramme assure la cohérence entre le modèle objet et la structure de la b
 
 
 ### 5.4 Diagramme de séquence – Gestion des rendez-vous
-![Diagramme de séquence](Diagramme de séquence.jpg)
+![Diagramme de séquence](DiagrammeDeSequenceAnimalCare.jpg)
 
 Le diagramme de séquence représente le déroulement dynamique du processus de prise, modification et annulation d’un rendez-vous.
 
