@@ -67,7 +67,7 @@ Cela permet de mieux cadrer le projet dans un contexte académique.
 
 Les modifications apportées permettent de transformer le SRS initial en un document structuré, testable et exploitable pour le pilotage du projet, conformément aux exigences du cours.
 
-### 8. Ajout et clarification des diagrammes
+### 5. Ajout et clarification des diagrammes
 
 Afin de renforcer la compréhension technique du système AnimalCare, nous avons ajouté et détaillé les diagrammes suivants :
 
