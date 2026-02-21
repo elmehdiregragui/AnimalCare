@@ -136,15 +136,98 @@ cette première version du système.
 
 ## 8. Exigences Non Fonctionnelles (NFR)
 
-NFR-01 : Authentification basée sur les rôles.
+### NFR-01 : Authentification basée sur les rôles.
 
-NFR-02 : Temps de réponse inférieur à 3 secondes pour les pages principales.
+**Description :**
 
-NFR-03 : Application accessible via navigateur web moderne.
+Le système doit implémenter une authentification sécurisée avec gestion des rôles (Administrateur, Réceptionniste, Vétérinaire, Propriétaire).
 
-NFR-04 : Création d’un rendez-vous en maximum 4 étapes.
+**Contraintes :**
 
-NFR-05 : Respect d’une architecture MVC avec séparation des responsabilités.
+- Accès aux fonctionnalités restreint selon le rôle.
+- Mot de passe sécurisé.
+- Sessions protégées.
+
+**Critères de validation :**
+
+- Un utilisateur ne peut accéder qu’aux fonctionnalités correspondant à son rôle.
+- Un utilisateur non authentifié ne peut accéder à aucune page protégée.
+- Les tentatives d’accès non autorisées sont bloquées.
+
+
+
+### NFR-02 : Temps de réponse inférieur à 3 secondes pour les pages principales.
+
+**Description :**
+
+Les pages principales (connexion, gestion des rendez-vous, consultation planning) doivent charger rapidement.
+
+**Contraintes :**
+
+- Optimisation des requêtes base de données.
+- Limitation des traitements lourds côté serveur.
+
+**Critères de validation :**
+
+- Temps de chargement mesuré inférieur à 3 secondes en conditions normales.
+- Aucun blocage ou ralentissement majeur lors de l’utilisation standard.
+
+
+### NFR-03 : Application accessible via navigateur web moderne.
+
+**Description :**
+
+Le système doit être accessible via les navigateurs récents.
+
+**Contraintes :**
+
+- Compatibilité avec Chrome, Edge, Firefox.
+- Interface responsive.
+
+**Critères de validation :**
+
+- L’application fonctionne sans erreur sur les navigateurs modernes.
+- L’affichage reste cohérent sur différentes résolutions.
+
+
+
+### NFR-04 : Création d’un rendez-vous en maximum 4 étapes.
+
+**Description :**
+
+Le processus de création d’un rendez-vous doit être simple et rapide.
+
+**Contraintes :**
+
+- Interface claire.
+- Navigation intuitive.
+
+**Critères de validation :**
+
+- Le nombre d’écrans ou d’étapes ne dépasse pas 4.
+- L’utilisateur peut compléter la procédure sans assistance.
+
+
+
+### NFR-05 : Respect d’une architecture MVC avec séparation des responsabilités.
+
+**Description :**
+
+Le système doit respecter une architecture en couches basée sur MVC.
+
+**Contraintes :**
+
+- Séparation claire entre :
+  - Modèle
+  - Vue
+  - Contrôleur
+- Logique métier distincte de l’accès aux données.
+
+**Critères de validation :**
+
+- Présence d’un dossier Models, Views, Controllers.
+- Absence de logique métier dans les vues.
+- Utilisation d’un DbContext pour l’accès aux données.
 
 
 
