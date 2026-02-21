@@ -71,6 +71,7 @@ Afin de renforcer la compréhension technique du système AnimalCare, nous avons
 
 
 ### 5.1 Diagramme de composants
+![Diagramme de composants](DiagrammeDeComposantsAnimalCare.jpg)
 
 Le diagramme de composants présente l’architecture globale du système.
 
