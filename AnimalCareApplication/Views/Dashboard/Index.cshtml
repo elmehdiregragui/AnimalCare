@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Tableau de bord - AnimalCare";
+}
+
+<div class="lux-container">
+
+    <h2 class="fw-bold mb-4 text-center">Tableau de bord – Clinique AnimalCare</h2>
+    <p class="text-center text-muted mb-5">
+        Accédez rapidement à toutes les fonctionnalités de gestion de la clinique.
+    </p>
+
+   
+    <div class="row mb-5">
+
+        <div class="col-md-4 mb-4">
+            <div class="dashboard-card bg-primary text-white">
+                <h5>Propriétaires</h5>
+                <p>Gestion complète des clients</p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="dashboard-card bg-success text-white">
+                <h5>Animaux</h5>
+                <p>Suivi de tous les patients</p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="dashboard-card bg-warning text-dark">
+                <h5>Rendez-vous</h5>
+                <p>Planification médicale</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4">
+            <a class="dashboard-btn bg-primary"
+               asp-controller="Proprietaires" asp-action="Index">
+                Gestion des Propriétaires
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <a class="dashboard-btn bg-info text-white"
+               asp-controller="Animals" asp-action="Index">
+                Gestion des Animaux
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <a class="dashboard-btn bg-success"
+               asp-controller="RendezVous" asp-action="Index">
+                Gestion des Rendez-vous
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <a class="dashboard-btn bg-warning text-dark"
+               asp-controller="Veterinaires" asp-action="Index">
+                Gestion des Vétérinaires
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <a class="dashboard-btn bg-secondary"
+               asp-controller="Horaires" asp-action="Index">
+                Gestion des Horaires
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <a class="dashboard-btn bg-dark"
+               asp-controller="Historiques" asp-action="Index">
+                Suivi / Historique médical
+            </a>
+        </div>
+
+    </div>
+
+</div>

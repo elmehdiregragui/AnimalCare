@@ -1,0 +1,49 @@
+﻿@model AnimalCareApplication.Models.ClientRendezVousViewModel
+
+@{
+    ViewData["Title"] = "Prendre rendez-vous";
+}
+
+<div class="container mt-4" style="max-width:600px;">
+    <h2 class="mb-3 text-center">Prendre un rendez-vous</h2>
+
+    @if (TempData["RdvSuccess"] != null)
+    {
+        <div class="alert alert-success">@TempData["RdvSuccess"]</div>
+    }
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning">@ViewBag.Message</div>
+    }
+
+    <form asp-action="PrendreRendezVous" method="post">
+        <div class="mb-3">
+            <label class="form-label">Animal</label>
+            <select asp-for="IdAnimal" asp-items="Model.Animaux" class="form-select">
+                <option value="">-- Sélectionnez un animal --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Vétérinaire</label>
+            <select asp-for="IdVeterinaire" asp-items="Model.Veterinaires" class="form-select">
+                <option value="">-- Sélectionnez un vétérinaire --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input asp-for="DateRv" type="date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Heure</label>
+            <input asp-for="Heure" type="time" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            Confirmer le rendez-vous
+        </button>
+    </form>
+</div>

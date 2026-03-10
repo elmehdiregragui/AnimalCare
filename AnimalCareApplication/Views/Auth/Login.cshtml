@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Connexion";
+}
+
+<div class="form-page">
+    <div class="form-card">
+
+        <h2>Connexion</h2>
+
+        <p class="text-center text-muted mb-4">
+            Accéder à votre espace AnimalCare
+        </p>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger text-center mb-3">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-controller="Auth" asp-action="Login" method="post">
+
+            <div class="form-group mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-4">
+                <label>Mot de passe</label>
+                <input type="password" name="motDePasse" class="form-control" required />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-main">Se connecter</button>
+                <a asp-controller="Auth" asp-action="Register" class="btn-cancel">
+                    Créer un compte
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>

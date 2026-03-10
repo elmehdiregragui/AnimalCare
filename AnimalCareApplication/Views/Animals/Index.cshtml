@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AnimalCareApplication.Models.Animal>
+
+@{
+    ViewData["Title"] = "Gestion des Animaux";
+}
+
+<div class="lux-container">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Gestion des Animaux</h2>
+        <a asp-action="Create" class="btn btn-success px-4 py-2">
+            + Ajouter un animal
+        </a>
+    </div>
+
+    <div class="table-responsive lux-table">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Espèce</th>
+                    <th>Race</th>
+                    <th>Âge</th>
+                    <th>Propriétaire</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@item.Nom</td>
+                        <td>@item.Espece</td>
+                        <td>@item.Race</td>
+                        <td>@item.Age</td>
+                        <td>@item.IdProprietaireNavigation?.IdProprietaire</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.IdAnimal" class="btn btn-sm btn-primary">Modifier</a>
+                            <a asp-action="Details" asp-route-id="@item.IdAnimal" class="btn btn-sm btn-info text-white">Détails</a>
+                            <a asp-action="Delete" asp-route-id="@item.IdAnimal" class="btn btn-sm btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

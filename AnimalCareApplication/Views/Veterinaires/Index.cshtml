@@ -1,0 +1,51 @@
+﻿@model IEnumerable<AnimalCareApplication.Models.Veterinaire>
+
+@{
+    ViewData["Title"] = "Gestion des Vétérinaires";
+}
+
+<div class="lux-container">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Gestion des Vétérinaires</h2>
+        <a asp-controller="Veterinaires" asp-action="Create" class="btn btn-success px-4 py-2">
+            + Ajouter un vétérinaire
+        </a>
+    </div>
+
+    <div class="table-responsive lux-table">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Vétérinaire</th>
+                    <th>Spécialité</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <!-- Nom + Prénom -->
+                        <td class="fw-semibold">
+                            @item.IdUtilisateurNavigation.Prenom @item.IdUtilisateurNavigation.Nom
+                        </td>
+
+                        <!-- Spécialité -->
+                        <td>@item.Specialite</td>
+
+                        <!-- Actions -->
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.IdVeterinaire" class="btn btn-sm btn-primary">Modifier</a>
+                            <a asp-action="Details" asp-route-id="@item.IdVeterinaire" class="btn btn-sm btn-info text-white">Détails</a>
+                            <a asp-action="Delete" asp-route-id="@item.IdVeterinaire" class="btn btn-sm btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

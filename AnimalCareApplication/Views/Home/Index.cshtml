@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Accueil";
+    var role = Context.Session.GetString("UserRole") ?? "";
+}
+
+<div class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Clinique Vétérinaire <span>AnimalCare</span></h1>
+        <p>Soins modernes, expertise médicale et attention personnalisée pour vos compagnons.</p>
+
+        <div class="hero-buttons">
+            @if (role == "Client")
+            {
+                <a asp-controller="Client" asp-action="PrendreRendezVous" class="btn-gold">
+                    Prendre un rendez-vous
+                </a>
+            }
+            else if (string.IsNullOrEmpty(role))
+            {
+                <a asp-controller="Auth" asp-action="Login" class="btn-gold">
+                    Prendre un rendez-vous
+                </a>
+                <a asp-controller="Auth" asp-action="Register" class="btn-outline">
+                    Créer un compte
+                </a>
+            }
+            else
+            {
+                <a asp-controller="RendezVous" asp-action="Index" class="btn-gold">
+                    Accéder à l'espace de gestion
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="lux-container">
+
+    <section class="lux-card">
+        <h2>À propos de notre clinique</h2>
+        <p>
+            La clinique <strong>AnimalCare</strong> est un centre de soins vétérinaires de haut niveau,
+            dédié au bien-être, à la prévention et au suivi médical de vos animaux.
+        </p>
+        <p>
+            Chirurgie, consultations, vaccins, bilans complets, imagerie médicale et suivi personnalisé :
+            votre animal est traité avec rigueur, respect et technologie moderne.
+        </p>
+    </section>
+
+   
+    <section class="lux-grid">
+
+        <div class="lux-vet">
+            <img src="/Images/yassine.jpg" alt="Dr. Yassine Benali" />
+            <h4>Dr. Yassine Benali</h4>
+            <span>Chirurgie animale</span>
+        </div>
+
+        <div class="lux-vet">
+            <img src="/Images/fatima.jpg" alt="Dr. Fatima Mansouri" />
+            <h4>Dr. Fatima Mansouri</h4>
+            <span>Médecine préventive</span>
+        </div>
+
+        <div class="lux-vet">
+            <img src="/Images/omar.png" alt="Dr. Omar Khaled" />
+            <h4>Dr. Omar Khaled</h4>
+            <span>Imagerie & diagnostics</span>
+        </div>
+
+    </section>
+
+
+
+
+   
+    <section class="lux-features">
+        <div class="lux-feature">✔ Suivi médical informatisé</div>
+        <div class="lux-feature">✔ Équipe expérimentée</div>
+        <div class="lux-feature">✔ Matériel moderne</div>
+        <div class="lux-feature">✔ Urgences vétérinaires</div>
+        <div class="lux-feature">✔ Rendez-vous en ligne</div>
+        <div class="lux-feature">✔ Suivi personnalisé</div>
+    </section>
+
+  
+    <section class="lux-contact">
+        <div>
+            <h3>Horaires</h3>
+            <p>Lundi à Vendredi : 9h – 18h</p>
+            <p>Samedi : 10h – 14h</p>
+            <p>Dimanche : Fermé</p>
+        </div>
+
+        <div>
+            <h3>Adresse</h3>
+            <p>123 Rue des Animaux</p>
+            <p>Montréal, QC</p>
+            <p>(514) 555-1234</p>
+        </div>
+    </section>
+
+</div>

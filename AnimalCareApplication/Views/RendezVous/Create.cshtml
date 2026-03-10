@@ -1,0 +1,63 @@
+﻿@model AnimalCareApplication.Models.RendezVou
+
+@{
+    ViewData["Title"] = "Créer un rendez-vous";
+    string role = ViewBag.Role as string ?? "";
+    bool isVet = role == "Vétérinaire";
+}
+
+<h1>Créer un rendez-vous</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="DateRv" class="control-label"></label>
+        <input asp-for="DateRv" class="form-control" />
+        <span asp-validation-for="DateRv" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Heure" class="control-label"></label>
+        <input asp-for="Heure" class="form-control" />
+        <span asp-validation-for="Heure" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Statut" class="control-label"></label>
+        <input asp-for="Statut" class="form-control" />
+        <span asp-validation-for="Statut" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IdAnimal" class="control-label"></label>
+        <select asp-for="IdAnimal" class="form-control" asp-items="ViewBag.IdAnimal"></select>
+        <span asp-validation-for="IdAnimal" class="text-danger"></span>
+    </div>
+
+    @if (isVet)
+    {
+        <div class="form-group">
+            <label class="control-label">Vétérinaire</label>
+            <input type="text" class="form-control" value="@ViewBag.VetName" readonly />
+            <input type="hidden" name="IdVeterinaire" value="@ViewBag.VetId" />
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label asp-for="IdVeterinaire" class="control-label"></label>
+            <select asp-for="IdVeterinaire" class="form-control" asp-items="ViewBag.IdVeterinaire"></select>
+            <span asp-validation-for="IdVeterinaire" class="text-danger"></span>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Créer</button>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

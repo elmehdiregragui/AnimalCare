@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Créer un vétérinaire";
+}
+
+<div class="form-page">
+    <div class="form-card">
+
+        <h2>Créer un vétérinaire</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="Create" method="post">
+
+            <div class="form-group mb-3">
+                <label>Prénom</label>
+                <input type="text" name="Prenom" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Nom</label>
+                <input type="text" name="Nom" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Email</label>
+                <input type="email" name="Email" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Mot de passe</label>
+                <input type="password" name="MotDePasse" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-4">
+                <label>Spécialité</label>
+                <input type="text" name="Specialite" class="form-control" required />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-main">Créer</button>
+                <a asp-action="Index" class="btn-cancel">Annuler</a>
+            </div>
+
+        </form>
+
+    </div>
+</div>

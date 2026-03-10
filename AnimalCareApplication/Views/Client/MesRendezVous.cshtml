@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AnimalCareApplication.Models.RendezVou>
+
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Statut</th>
+            <th>Animal</th>
+            <th>Vétérinaire</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DateRv.ToString("dd/MM/yyyy")</td>
+                <td>@item.Heure</td>
+                <td>@item.Statut</td>
+                <td>@item.IdAnimalNavigation?.Nom</td>
+                <td>
+                    @item.IdVeterinaireNavigation?.IdUtilisateurNavigation?.Prenom
+                    @item.IdVeterinaireNavigation?.IdUtilisateurNavigation?.Nom
+                </td>
+
+                <td class="text-center">
+                    <a asp-controller="Client"
+                       asp-action="ModifierRendezVous"
+                       asp-route-id="@item.IdRendezVous">
+                        Modifier
+                    </a>
+
+                    <a asp-controller="Client"
+                       asp-action="SupprimerRendezVous"
+                       asp-route-id="@item.IdRendezVous">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

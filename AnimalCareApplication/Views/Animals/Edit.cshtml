@@ -1,0 +1,55 @@
+﻿@model AnimalCareApplication.Models.Animal
+@{
+    ViewData["Title"] = "Modifier un animal";
+}
+
+<h2>Modifier un animal</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input type="hidden" asp-for="IdAnimal" />
+
+    <div class="mb-3">
+        <label asp-for="Nom" class="form-label"></label>
+        <input asp-for="Nom" class="form-control" />
+        <span asp-validation-for="Nom" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Espece" class="form-label"></label>
+        <input asp-for="Espece" class="form-control" />
+        <span asp-validation-for="Espece" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Race" class="form-label"></label>
+        <input asp-for="Race" class="form-control" />
+        <span asp-validation-for="Race" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label"></label>
+        <input asp-for="Age" type="number" class="form-control" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdProprietaire" class="form-label">Propriétaire</label>
+        <select asp-for="IdProprietaire"
+                asp-items="@(ViewData["IdProprietaire"] as SelectList)"
+                class="form-select">
+            <option value="">-- Sélectionnez un propriétaire --</option>
+        </select>
+        <span asp-validation-for="IdProprietaire" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Retour à la liste</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

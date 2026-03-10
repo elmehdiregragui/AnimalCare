@@ -1,0 +1,37 @@
+﻿@model AnimalCareApplication.Models.RendezVou
+
+@{
+    ViewData["Title"] = "Supprimer rendez-vous";
+}
+
+<div class="form-page">
+    <div class="form-card">
+
+        <h2>Supprimer ce rendez-vous ?</h2>
+
+        <p class="text-center text-muted mb-4">
+            Confirmez la suppression de votre rendez-vous.
+        </p>
+
+        <div class="mb-4">
+            <strong>Date :</strong> @Model.DateRv.ToString("dd/MM/yyyy") <br />
+            <strong>Heure :</strong> @Model.Heure <br />
+            <strong>Statut :</strong> @Model.Statut <br />
+            <strong>Animal :</strong> @Model.IdAnimalNavigation?.Nom <br />
+            <strong>Vétérinaire :</strong>
+            @Model.IdVeterinaireNavigation?.IdUtilisateurNavigation?.Prenom
+            @Model.IdVeterinaireNavigation?.IdUtilisateurNavigation?.Nom
+        </div>
+
+        <form asp-action="SupprimerRendezVous" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.IdRendezVous" />
+
+            <div class="form-actions">
+                <button type="submit" class="btn-main" style="background: #ef4444;">Supprimer</button>
+                <a asp-action="MesRendezVous" class="btn-cancel">Annuler</a>
+            </div>
+        </form>
+
+    </div>
+</div>

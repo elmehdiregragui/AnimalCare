@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AnimalCareApplication.Models.Horaire>
+
+@{
+    ViewData["Title"] = "Gestion des Horaires";
+    string role = ViewBag.Role as string ?? "";
+    string userName = ViewBag.UserName as string ?? "";
+}
+
+<div class="lux-container">
+
+    @if (role == "Vétérinaire")
+    {
+        <div class="alert alert-info mt-3 mb-4 p-4 rounded shadow-sm">
+            <h4 class="mb-1">Bienvenue vétérinaire @userName</h4>
+            <p class="mb-0">Voici vos horaires de travail.</p>
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Gestion des Horaires</h2>
+        <a asp-action="Create" class="btn btn-success px-4 py-2">
+            + Ajouter un horaire
+        </a>
+    </div>
+
+    <div class="table-responsive lux-table">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Jour</th>
+                    <th>Heure début</th>
+                    <th>Heure fin</th>
+                    <th>Vétérinaire (ID)</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@item.Jour</td>
+                        <td>@item.HeureDebut</td>
+                        <td>@item.HeureFin</td>
+                        <td>@item.IdVeterinaireNavigation?.IdVeterinaire</td>
+
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.IdHoraire" class="btn btn-sm btn-primary">Modifier</a>
+                            <a asp-action="Details" asp-route-id="@item.IdHoraire" class="btn btn-sm btn-info text-white">Détails</a>
+                            <a asp-action="Delete" asp-route-id="@item.IdHoraire" class="btn btn-sm btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

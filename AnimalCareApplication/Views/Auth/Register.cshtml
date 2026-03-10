@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Inscription";
+}
+
+<div class="form-page">
+    <div class="form-card">
+
+        <h2>Créer un compte</h2>
+
+        <p class="text-center text-muted mb-4">
+            Inscription client – Clinique AnimalCare
+        </p>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger text-center mb-3">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form method="post" asp-action="Register">
+
+            <div class="form-group mb-3">
+                <label>Nom</label>
+                <input type="text" name="Nom" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Prénom</label>
+                <input type="text" name="Prenom" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Adresse</label>
+                <input type="text" name="Adresse" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Téléphone</label>
+                <input type="text" name="Telephone" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Email</label>
+                <input type="email" name="Email" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-4">
+                <label>Mot de passe</label>
+                <input type="password" name="MotDePasse" class="form-control" required />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-main">Créer mon compte</button>
+                <a asp-controller="Auth" asp-action="Login" class="btn-cancel">
+                    Se connecter
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@model AnimalCareApplication.Models.Utilisateur
+
+@{
+    ViewData["Title"] = "Créer un utilisateur";
+}
+
+<h1>Créer un utilisateur</h1>
+
+<form asp-action="Create" method="post">
+
+    <div class="form-group">
+        <label asp-for="Prenom"></label>
+        <input asp-for="Prenom" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Nom"></label>
+        <input asp-for="Nom" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MotDePasse"></label>
+        <input asp-for="MotDePasse" type="password" class="form-control" />
+    </div>
+
+    <button type="submit">Créer</button>
+
+</form>

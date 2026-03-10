@@ -1,0 +1,42 @@
+﻿@model AnimalCareApplication.Models.Horaire
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Horaire</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Jour)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Jour)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureDebut)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HeureDebut)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureFin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HeureFin)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdVeterinaireNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdVeterinaireNavigation.IdVeterinaire)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdHoraire">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
