@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AnimalCareApplication.Models;
+using AnimalCareApplication.Patterns.Decorator;
+using AnimalCareApplication.Patterns.Observer;
+using AnimalCareApplication.Patterns.Singleton;
+using AnimalCareApplication.Patterns.Strategy;
+using AnimalCareApplication.Security;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-using AnimalCareApplication.Models;
-using AnimalCareApplication.Security;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AnimalCareApplication.Controllers
 {
@@ -22,9 +26,10 @@ namespace AnimalCareApplication.Controllers
             _context = context;
         }
 
-        
+
         public async Task<IActionResult> Index()
         {
+            Singleton.Instance.Log("Consultation de la liste des rendez-vous");
             var role = HttpContext.Session.GetString("UserRole");
             var userId = HttpContext.Session.GetInt32("UserId");
             var userName = HttpContext.Session.GetString("UserName");
@@ -33,10 +38,12 @@ namespace AnimalCareApplication.Controllers
             ViewBag.UserName = userName;
 
             IQueryable<RendezVou> query = _context.RendezVous
-                .Include(r => r.IdAnimalNavigation)
-                .Include(r => r.IdVeterinaireNavigation);
+    .Include(r => r.IdAnimalNavigation)
+        .ThenInclude(a => a.IdProprietaireNavigation)
+    .Include(r => r.IdVeterinaireNavigation)
+        .ThenInclude(v => v.IdUtilisateurNavigation);
 
-            
+
             if (role == "Vétérinaire" && userId.HasValue)
             {
                 var vet = await _context.Veterinaires
@@ -64,7 +71,7 @@ namespace AnimalCareApplication.Controllers
         }
 
 
-       
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.RendezVous == null)
@@ -73,9 +80,11 @@ namespace AnimalCareApplication.Controllers
             }
 
             var rendezVou = await _context.RendezVous
-                .Include(r => r.IdAnimalNavigation)
-                .Include(r => r.IdVeterinaireNavigation)
-                .FirstOrDefaultAsync(m => m.IdRendezVous == id);
+    .Include(r => r.IdAnimalNavigation)
+        .ThenInclude(a => a.IdProprietaireNavigation)
+    .Include(r => r.IdVeterinaireNavigation)
+        .ThenInclude(v => v.IdUtilisateurNavigation)
+    .FirstOrDefaultAsync(m => m.IdRendezVous == id);
             if (rendezVou == null)
             {
                 return NotFound();
@@ -84,18 +93,19 @@ namespace AnimalCareApplication.Controllers
             return View(rendezVou);
         }
 
-       
+
         public async Task<IActionResult> Create()
         {
+            Singleton.Instance.Log("Ouverture du formulaire de création de rendez-vous");
             var role = HttpContext.Session.GetString("UserRole");
             var userId = HttpContext.Session.GetInt32("UserId");
             var clientId = HttpContext.Session.GetInt32("ClientId");
             ViewBag.Role = role;
 
-            
+
             IQueryable<Animal> animauxQuery = _context.Animals;
 
-         
+
             if (role == "Client" && clientId.HasValue)
             {
                 animauxQuery = animauxQuery.Where(a => a.IdProprietaire == clientId.Value);
@@ -111,7 +121,7 @@ namespace AnimalCareApplication.Controllers
 
             ViewData["IdAnimal"] = new SelectList(animaux, "IdAnimal", "Nom");
 
-            
+
             if (role == "Administrateur" || role == "Secrétaire" || role == "Client")
             {
                 var vets = await _context.Veterinaires
@@ -146,12 +156,12 @@ namespace AnimalCareApplication.Controllers
                 return View();
             }
 
-           
+
             return RedirectToAction("Index");
         }
 
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdRendezVous,DateRv,Heure,Statut,IdAnimal,IdVeterinaire")] RendezVou rendezVou)
@@ -172,15 +182,108 @@ namespace AnimalCareApplication.Controllers
 
             if (ModelState.IsValid)
             {
+                IRendezVousStrategy strategy;
+
+                if (rendezVou.DateRv.Date == DateTime.Today)
+                {
+                    strategy = new RendezVousUrgentStrategy();
+                }
+                else
+                {
+                    strategy = new RendezVousNormalStrategy();
+                }
+
+                strategy.AppliquerStrategie(rendezVou);
+
+                RendezVousSubject subject = new RendezVousSubject();
+
+                var vet = await _context.Veterinaires
+                    .Include(v => v.IdUtilisateurNavigation)
+                    .FirstOrDefaultAsync(v => v.IdVeterinaire == rendezVou.IdVeterinaire);
+
+                if (vet != null)
+                {
+                    subject.Attach(new NotificationObserver(_context, vet.IdUtilisateur));
+                }
+
+                var admins = await _context.Utilisateurs
+                    .Include(u => u.IdRoleNavigation)
+                    .Where(u => u.IdRoleNavigation.Nom == "Administrateur")
+                    .ToListAsync();
+
+                foreach (var admin in admins)
+                {
+                    subject.Attach(new NotificationObserver(_context, admin.IdUtilisateur));
+                }
+
+                var jour = rendezVou.DateRv.ToString("dddd", new System.Globalization.CultureInfo("fr-FR"));
+                jour = char.ToUpper(jour[0]) + jour.Substring(1).ToLower();
+
+                var dansHoraire = await _context.Horaires.AnyAsync(h =>
+                    h.IdVeterinaire == rendezVou.IdVeterinaire &&
+                    h.Jour == jour &&
+                    rendezVou.Heure >= h.HeureDebut &&
+                    rendezVou.Heure < h.HeureFin);
+
+                if (!dansHoraire)
+                {
+                    ModelState.AddModelError("", "Le vétérinaire n'est pas disponible à cette date et à cette heure.");
+                }
+
+                var conflit = await _context.RendezVous.AnyAsync(r =>
+                    r.IdVeterinaire == rendezVou.IdVeterinaire &&
+                    r.DateRv == rendezVou.DateRv.Date &&
+                    r.Heure == rendezVou.Heure);
+
+                if (conflit)
+                {
+                    ModelState.AddModelError("", "Ce créneau est déjà pris.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.Role = role;
+                    ViewData["IdAnimal"] = new SelectList(_context.Animals, "IdAnimal", "Nom", rendezVou.IdAnimal);
+
+                    ViewData["IdVeterinaire"] = new SelectList(
+                        _context.Veterinaires
+                            .Include(v => v.IdUtilisateurNavigation)
+                            .Select(v => new
+                            {
+                                v.IdVeterinaire,
+                                NomComplet = v.IdUtilisateurNavigation.Prenom + " " + v.IdUtilisateurNavigation.Nom
+                            }),
+                        "IdVeterinaire",
+                        "NomComplet",
+                        rendezVou.IdVeterinaire
+                    );
+
+                    return View(rendezVou);
+                }
+
                 _context.Add(rendezVou);
                 await _context.SaveChangesAsync();
+
+                Singleton.Instance.Log("Rendez-vous créé");
+
+                IRendezVousComponent component = new RendezVousComponent();
+                component = new RappelRendezVousDecorator(component);
+
+                if (rendezVou.DateRv.Date == DateTime.Today.AddDays(1))
+                {
+                    component.Executer();
+                }
+                
+
+                subject.Notify("Un nouveau rendez-vous a été créé.");
+
                 return RedirectToAction(nameof(Index));
             }
 
             ViewBag.Role = role;
-            ViewData["IdAnimal"] = new SelectList(_context.Animals, "IdAnimal", "IdAnimal", rendezVou.IdAnimal);
+            ViewData["IdAnimal"] = new SelectList(_context.Animals, "IdAnimal", "Nom", rendezVou.IdAnimal);
 
-            if (role == "Administrateur" || role == "Secrétaire")
+            if (role == "Administrateur" || role == "Secrétaire" || role == "Client")
             {
                 ViewData["IdVeterinaire"] = new SelectList(
                     _context.Veterinaires
@@ -211,7 +314,7 @@ namespace AnimalCareApplication.Controllers
             return View(rendezVou);
         }
 
-       
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.RendezVous == null)
@@ -219,7 +322,12 @@ namespace AnimalCareApplication.Controllers
                 return NotFound();
             }
 
-            var rendezVou = await _context.RendezVous.FindAsync(id);
+            var rendezVou = await _context.RendezVous
+    .Include(r => r.IdAnimalNavigation)
+        .ThenInclude(a => a.IdProprietaireNavigation)
+    .Include(r => r.IdVeterinaireNavigation)
+        .ThenInclude(v => v.IdUtilisateurNavigation)
+    .FirstOrDefaultAsync(m => m.IdRendezVous == id);
             if (rendezVou == null)
             {
                 return NotFound();
@@ -244,6 +352,9 @@ namespace AnimalCareApplication.Controllers
                 {
                     _context.Update(rendezVou);
                     await _context.SaveChangesAsync();
+
+                    Singleton.Instance.Log("Rendez-vous modifié");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -263,7 +374,6 @@ namespace AnimalCareApplication.Controllers
             return View(rendezVou);
         }
 
-       
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.RendezVous == null)
@@ -272,9 +382,11 @@ namespace AnimalCareApplication.Controllers
             }
 
             var rendezVou = await _context.RendezVous
-                .Include(r => r.IdAnimalNavigation)
-                .Include(r => r.IdVeterinaireNavigation)
-                .FirstOrDefaultAsync(m => m.IdRendezVous == id);
+    .Include(r => r.IdAnimalNavigation)
+        .ThenInclude(a => a.IdProprietaireNavigation)
+    .Include(r => r.IdVeterinaireNavigation)
+        .ThenInclude(v => v.IdUtilisateurNavigation)
+    .FirstOrDefaultAsync(m => m.IdRendezVous == id);
             if (rendezVou == null)
             {
                 return NotFound();
@@ -283,7 +395,7 @@ namespace AnimalCareApplication.Controllers
             return View(rendezVou);
         }
 
-      
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -292,13 +404,21 @@ namespace AnimalCareApplication.Controllers
             {
                 return Problem("Entity set 'AnimalCareDbContext.RendezVous'  is null.");
             }
-            var rendezVou = await _context.RendezVous.FindAsync(id);
+            var rendezVou = await _context.RendezVous
+    .Include(r => r.IdAnimalNavigation)
+        .ThenInclude(a => a.IdProprietaireNavigation)
+    .Include(r => r.IdVeterinaireNavigation)
+        .ThenInclude(v => v.IdUtilisateurNavigation)
+    .FirstOrDefaultAsync(m => m.IdRendezVous == id);
             if (rendezVou != null)
             {
                 _context.RendezVous.Remove(rendezVou);
             }
 
             await _context.SaveChangesAsync();
+
+            Singleton.Instance.Log("Rendez-vous supprimé");
+
             return RedirectToAction(nameof(Index));
         }
 

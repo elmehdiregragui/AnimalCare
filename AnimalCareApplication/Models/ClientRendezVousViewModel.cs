@@ -12,7 +12,7 @@ namespace AnimalCareApplication.Models
         public TimeSpan Heure { get; set; }
 
         public int IdRendezVous { get; set; }
-
+        public string Etat { get; set; } = "Prévu";
 
         public List<SelectListItem> Animaux { get; set; } = new();
         public List<SelectListItem> Veterinaires { get; set; } = new();

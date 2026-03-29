@@ -2,6 +2,7 @@
 using AnimalCareApplication.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using AnimalCareApplication.Patterns.Singleton;
 
 
 namespace AnimalCareApplication.Controllers
@@ -85,6 +86,7 @@ namespace AnimalCareApplication.Controllers
 
             _context.Proprietaires.Add(proprietaire);
             await _context.SaveChangesAsync();
+            Singleton.Instance.Log("Nouvel utilisateur inscrit : " + Email);
 
             TempData["RegisterSuccess"] =
                 "Votre compte a été créé. Vous pouvez maintenant vous connecter.";
@@ -111,10 +113,11 @@ namespace AnimalCareApplication.Controllers
             if (user != null)
             {
                 HttpContext.Session.SetInt32("UserId", user.IdUtilisateur);
+                Singleton.Instance.Log("Utilisateur connecté : " + email);
+
                 HttpContext.Session.SetString("UserName", user.Prenom + " " + user.Nom);
                 HttpContext.Session.SetString("UserRole", user.IdRoleNavigation.Nom);
 
-              
                 if (user.Veterinaire != null)
                 {
                     HttpContext.Session.SetInt32("IdVeterinaire", user.Veterinaire.IdVeterinaire);
@@ -125,7 +128,7 @@ namespace AnimalCareApplication.Controllers
                     "Administrateur" => RedirectToAction("Index", "Dashboard"),
                     "Vétérinaire" => RedirectToAction("Index", "RendezVous"),
                     "Secrétaire" => RedirectToAction("Index", "Proprietaires"),
-                    _ => RedirectToAction("Index", "Dashboard")
+                    _ => RedirectToAction("Index", "Home")
                 };
             }
 

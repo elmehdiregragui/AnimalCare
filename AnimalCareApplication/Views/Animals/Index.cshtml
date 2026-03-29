@@ -33,7 +33,13 @@
                         <td>@item.Espece</td>
                         <td>@item.Race</td>
                         <td>@item.Age</td>
-                        <td>@item.IdProprietaireNavigation?.IdProprietaire</td>
+                        <td>
+                            @(item.IdProprietaireNavigation != null
+                                                    ? System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+                                                    (item.IdProprietaireNavigation.Prenom + " " +
+                                                    item.IdProprietaireNavigation.Nom).ToLower())
+                                                    : "Non défini")
+                    </td>
                         <td class="text-center">
                             <a asp-action="Edit" asp-route-id="@item.IdAnimal" class="btn btn-sm btn-primary">Modifier</a>
                             <a asp-action="Details" asp-route-id="@item.IdAnimal" class="btn btn-sm btn-info text-white">Détails</a>

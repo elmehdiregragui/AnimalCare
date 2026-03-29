@@ -1,51 +1,47 @@
 ﻿@model AnimalCareApplication.Models.RendezVou
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Supprimer le rendez-vous";
+
+    var nomVet = Model.IdVeterinaireNavigation != null && Model.IdVeterinaireNavigation.IdUtilisateurNavigation != null
+        ? Model.IdVeterinaireNavigation.IdUtilisateurNavigation.Prenom + " " + Model.IdVeterinaireNavigation.IdUtilisateurNavigation.Nom
+        : "Non défini";
+
+    var nomProprietaire = Model.IdAnimalNavigation != null && Model.IdAnimalNavigation.IdProprietaireNavigation != null
+        ? Model.IdAnimalNavigation.IdProprietaireNavigation.Prenom + " " + Model.IdAnimalNavigation.IdProprietaireNavigation.Nom
+        : "Non défini";
 }
 
-<h1>Delete</h1>
+<h1>Supprimer</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Êtes-vous sûr de vouloir supprimer ce rendez-vous ?</h3>
+
 <div>
-    <h4>RendezVou</h4>
+    <h4>Rendez-vous</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateRv)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateRv)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Heure)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Heure)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Statut)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Statut)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdAnimalNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdAnimalNavigation.IdAnimal)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdVeterinaireNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdVeterinaireNavigation.IdVeterinaire)
-        </dd>
+        <dt class="col-sm-2">Date</dt>
+        <dd class="col-sm-10">@Model.DateRv.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-2">Heure</dt>
+        <dd class="col-sm-10">@Model.Heure.ToString(@"hh\:mm")</dd>
+
+        <dt class="col-sm-2">Statut</dt>
+        <dd class="col-sm-10">@Model.Statut</dd>
+
+        <dt class="col-sm-2">Animal</dt>
+        <dd class="col-sm-10">@(Model.IdAnimalNavigation?.Nom ?? "Animal inconnu")</dd>
+
+        <dt class="col-sm-2">Propriétaire</dt>
+        <dd class="col-sm-10">@nomProprietaire</dd>
+
+        <dt class="col-sm-2">Vétérinaire</dt>
+        <dd class="col-sm-10">@nomVet</dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdRendezVous" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+        <a asp-action="Index">Retour à la liste</a>
     </form>
 </div>

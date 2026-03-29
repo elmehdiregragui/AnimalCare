@@ -1,24 +1,49 @@
 ﻿@using Microsoft.AspNetCore.Http
+@using AnimalCareApplication.Models
+@inject AnimalCareDbContext _context
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    ...
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AnimalCare</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<link rel="stylesheet" href="~/css/site.css" />
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
+
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">AnimalCare</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @{
                         var role = (Context.Session.GetString("UserRole") ?? "").Trim();
+                        var userId = Context.Session.GetInt32("UserId");
+                        var clientId = Context.Session.GetInt32("ClientId");
+
+                        int? id = role == "Client" ? clientId : userId;
+
+                        var notifications = new List<Notification>();
+
+                        if (id != null)
+                        {
+                            notifications = _context.Notifications
+                            .Where(n => n.IdUtilisateur == id && !n.EstLue)
+                            .OrderByDescending(n => n.DateCreation)
+                            .Take(5)
+                            .ToList();
+                        }
                     }
 
                     <ul class="navbar-nav flex-grow-1">
@@ -45,24 +70,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-controller="Horaires" asp-action="Index">Horaires</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Historiques" asp-action="Index">Historique médical</a>
-                                </li>
                             }
-                           
-                            else if (role == "Secrétaire")
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Proprietaires" asp-action="Index">Propriétaires</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Animals" asp-action="Index">Animaux</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="RendezVous" asp-action="Index">Rendez-vous</a>
-                                </li>
-                            }
-                          
                             else if (role == "Vétérinaire")
                             {
                                 <li class="nav-item">
@@ -74,46 +82,56 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-controller="Horaires" asp-action="Index">Horaires</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Historiques" asp-action="Index">Historique médical</a>
-                                </li>
                             }
-                            @* CLIENT *@
                             else if (role == "Client")
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark"
-                                       asp-controller="Client"
-                                       asp-action="PrendreRendezVous">
-                                        Prendre rendez-vous
-                                    </a>
+                                    <a class="nav-link text-dark" asp-controller="Client" asp-action="PrendreRendezVous">Prendre rendez-vous</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Client" asp-action="MesRendezVous">
-                                        Mes rendez-vous
-                                    </a>
+                                    <a class="nav-link text-dark" asp-controller="Client" asp-action="MesRendezVous">Mes rendez-vous</a>
                                 </li>
-
                             }
 
-                           
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle @(notifications.Count > 0 ? "text-warning" : "text-dark")"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    🔔 (@notifications.Count)
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    @if (notifications.Any())
+                                    {
+                                        foreach (var notif in notifications)
+                                        {
+                                            <li>
+                                                <span class="dropdown-item">@notif.Message</span>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <span class="dropdown-item text-muted">Aucune notification</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link text-danger" asp-controller="Auth" asp-action="Logout">Déconnexion</a>
                             </li>
                         }
                         else
                         {
-                           
-                            <li class="nav-item nav-btn">
-                                <a class="nav-link btn-nav" asp-controller="Auth" asp-action="Login">
-                                    Connexion
-                                </a>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Auth" asp-action="Login">Connexion</a>
                             </li>
-
-                            <li class="nav-item nav-btn">
-                                <a class="nav-link btn-nav-outline" asp-controller="Auth" asp-action="Register">
-                                    Créer un compte
-                                </a>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Auth" asp-action="Register">Créer un compte</a>
                             </li>
                         }
                     </ul>
@@ -130,12 +148,11 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
-    <footer>
+
+    <footer class="text-center mt-4">
         <p>© 2025 AnimalCare – Clinique Vétérinaire | Tous droits réservés</p>
     </footer>
-
 </body>
 </html>

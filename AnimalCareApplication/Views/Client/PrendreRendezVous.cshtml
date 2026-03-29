@@ -4,46 +4,177 @@
     ViewData["Title"] = "Prendre rendez-vous";
 }
 
-<div class="container mt-4" style="max-width:600px;">
-    <h2 class="mb-3 text-center">Prendre un rendez-vous</h2>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4 fw-bold">Prendre un rendez-vous</h2>
 
-    @if (TempData["RdvSuccess"] != null)
-    {
-        <div class="alert alert-success">@TempData["RdvSuccess"]</div>
-    }
+                    @if (TempData["RdvSuccess"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["RdvSuccess"]</div>
+                    }
 
-    @if (ViewBag.Message != null)
-    {
-        <div class="alert alert-warning">@ViewBag.Message</div>
-    }
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="alert alert-warning">@ViewBag.Message</div>
+                    }
 
-    <form asp-action="PrendreRendezVous" method="post">
-        <div class="mb-3">
-            <label class="form-label">Animal</label>
-            <select asp-for="IdAnimal" asp-items="Model.Animaux" class="form-select">
-                <option value="">-- Sélectionnez un animal --</option>
-            </select>
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <form asp-action="PrendreRendezVous" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <label asp-for="IdAnimal" class="form-label fw-semibold">Animal</label>
+                            <select asp-for="IdAnimal" asp-items="Model.Animaux" class="form-select">
+                                <option value="">-- Sélectionnez un animal --</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="IdVeterinaire" class="form-label fw-semibold">Vétérinaire</label>
+                            <select asp-for="IdVeterinaire" asp-items="Model.Veterinaires" class="form-select" id="vetSelect">
+                                <option value="">-- Sélectionnez un vétérinaire --</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="DateRv" class="form-label fw-semibold">Date</label>
+                            <input asp-for="DateRv"
+                                   type="date"
+                                   class="form-control"
+                                   id="dateInput"
+                                   min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Heure choisie</label>
+                            <input asp-for="Heure" type="hidden" id="heureInput" />
+                            <input type="text" id="heureAffichee" class="form-control" readonly placeholder="Choisissez un créneau" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Heures disponibles</label>
+                            <div id="creneauxContainer" class="d-flex flex-wrap gap-2 mt-2">
+                                <span class="text-muted">Sélectionnez un vétérinaire et une date</span>
+                            </div>
+                            <small class="text-muted d-block mt-2">
+                                Bleu = disponible, Gris = déjà pris, Vert = sélectionné
+                            </small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 rounded-3">
+                            Confirmer le rendez-vous
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Vétérinaire</label>
-            <select asp-for="IdVeterinaire" asp-items="Model.Veterinaires" class="form-select">
-                <option value="">-- Sélectionnez un vétérinaire --</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Date</label>
-            <input asp-for="DateRv" type="date" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Heure</label>
-            <input asp-for="Heure" type="time" class="form-control" />
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100">
-            Confirmer le rendez-vous
-        </button>
-    </form>
+    </div>
 </div>
+
+<style>
+    .creneau-btn {
+        border: none;
+        padding: 10px 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        min-width: 90px;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .creneau-dispo {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+        .creneau-dispo:hover {
+            transform: translateY(-2px);
+        }
+
+    .creneau-pris {
+        background-color: #d6d6d6;
+        color: #777;
+        cursor: not-allowed;
+    }
+
+    .creneau-selectionne {
+        background-color: #198754 !important;
+        color: white;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const vetSelect = document.getElementById("vetSelect");
+        const dateInput = document.getElementById("dateInput");
+        const heureInput = document.getElementById("heureInput");
+        const heureAffichee = document.getElementById("heureAffichee");
+        const creneauxContainer = document.getElementById("creneauxContainer");
+
+        async function chargerCreneaux() {
+            const vetId = vetSelect.value;
+            const date = dateInput.value;
+
+            creneauxContainer.innerHTML = "";
+            heureInput.value = "";
+            heureAffichee.value = "";
+
+            if (!vetId || !date) {
+                creneauxContainer.innerHTML = `<span class="text-muted">Sélectionnez un vétérinaire et une date</span>`;
+                return;
+            }
+
+            try {
+                const response = await fetch(`/Client/GetCreneauxDisponibles?idVeterinaire=${vetId}&dateRv=${date}`);
+                const data = await response.json();
+
+                if (!data || data.length === 0) {
+                    creneauxContainer.innerHTML = `<div class="text-danger">Aucun créneau disponible pour cette date.</div>`;
+                    return;
+                }
+
+                data.forEach(item => {
+                    const btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.textContent = item.heure;
+                    btn.classList.add("creneau-btn");
+
+                    if (item.disponible) {
+                        btn.classList.add("creneau-dispo");
+
+                        btn.addEventListener("click", function () {
+                            document.querySelectorAll(".creneau-btn").forEach(x => {
+                                x.classList.remove("creneau-selectionne");
+                            });
+
+                            btn.classList.add("creneau-selectionne");
+                            heureInput.value = item.heure;
+                            heureAffichee.value = item.heure;
+                        });
+                    } else {
+                        btn.classList.add("creneau-pris");
+                        btn.disabled = true;
+                    }
+
+                    creneauxContainer.appendChild(btn);
+                });
+            } catch (error) {
+                creneauxContainer.innerHTML = `<div class="text-danger">Erreur lors du chargement des créneaux.</div>`;
+                console.error(error);
+            }
+        }
+
+        vetSelect.addEventListener("change", chargerCreneaux);
+        dateInput.addEventListener("change", chargerCreneaux);
+
+        window.addEventListener("load", chargerCreneaux);
+    </script>
+}

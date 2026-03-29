@@ -30,8 +30,10 @@
                     <th>Date</th>
                     <th>Heure</th>
                     <th>Statut</th>
-                    <th>Animal (ID)</th>
-                    <th>Vétérinaire (ID)</th>
+                    <th>État</th>
+                    <th>Animal</th>
+                    <th>Propriétaire</th>
+                    <th>Vétérinaire</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -39,27 +41,28 @@
             <tbody>
                 @foreach (var item in Model)
                 {
+                    var nomVet = item.IdVeterinaireNavigation?.IdUtilisateurNavigation != null
+                    ? System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+                    (item.IdVeterinaireNavigation.IdUtilisateurNavigation.Prenom + " " +
+                    item.IdVeterinaireNavigation.IdUtilisateurNavigation.Nom).ToLower())
+                    : "Non défini";
+
+                    var nomProprietaire = item.IdAnimalNavigation?.IdProprietaireNavigation != null
+                    ? System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+                    (item.IdAnimalNavigation.IdProprietaireNavigation.Prenom + " " +
+                    item.IdAnimalNavigation.IdProprietaireNavigation.Nom).ToLower())
+                    : "Non défini";
+
                     <tr>
                         <td>@item.DateRv.ToString("dd/MM/yyyy")</td>
-                        <td>@item.Heure</td>
+                        <td>@item.Heure.ToString(@"hh\:mm")</td>
 
-                        <td>
-                            @if (item.Statut == "Confirmé")
-                            {
-                                <span class="badge bg-success">Confirmé</span>
-                            }
-                            else if (item.Statut == "Annulé")
-                            {
-                                <span class="badge bg-danger">Annulé</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-warning text-dark">En attente</span>
-                            }
-                        </td>
+                        <td>@item.Statut</td>
+                        <td>@item.Etat</td>
 
-                        <td>@item.IdAnimalNavigation?.IdAnimal</td>
-                        <td>@item.IdVeterinaireNavigation?.IdVeterinaire</td>
+                        <td>@(item.IdAnimalNavigation?.Nom ?? "Animal inconnu")</td>
+                        <td>@nomProprietaire</td>
+                        <td>@nomVet</td>
 
                         <td class="text-center">
                             <a asp-action="Edit" asp-route-id="@item.IdRendezVous" class="btn btn-sm btn-primary">Modifier</a>
@@ -69,8 +72,6 @@
                     </tr>
                 }
             </tbody>
-
         </table>
     </div>
-
 </div>

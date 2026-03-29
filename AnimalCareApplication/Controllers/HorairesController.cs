@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using AnimalCareApplication.Models;
 using AnimalCareApplication.Security;
+using AnimalCareApplication.Patterns.Singleton;
 
 namespace AnimalCareApplication.Controllers
 {
@@ -21,6 +22,7 @@ namespace AnimalCareApplication.Controllers
 
         public async Task<IActionResult> Index()
         {
+            Singleton.Instance.Log("Consultation des horaires");
             var role = HttpContext.Session.GetString("UserRole");
             var userId = HttpContext.Session.GetInt32("UserId");
             var userName = HttpContext.Session.GetString("UserName");
@@ -51,9 +53,9 @@ namespace AnimalCareApplication.Controllers
             if (id == null) return NotFound();
 
             var horaire = await _context.Horaires
-                .Include(h => h.IdVeterinaireNavigation)
-                .ThenInclude(v => v.IdUtilisateurNavigation)
-                .FirstOrDefaultAsync(m => m.IdHoraire == id);
+    .Include(h => h.IdVeterinaireNavigation)
+    .ThenInclude(v => v.IdUtilisateurNavigation)
+    .FirstOrDefaultAsync(m => m.IdHoraire == id);
 
             if (horaire == null) return NotFound();
 
@@ -128,6 +130,7 @@ namespace AnimalCareApplication.Controllers
 
             _context.Horaires.Add(horaire);
             await _context.SaveChangesAsync();
+            Singleton.Instance.Log("Horaire ajouté");
 
             return RedirectToAction(nameof(Index));
         }
@@ -200,6 +203,7 @@ namespace AnimalCareApplication.Controllers
 
             _context.Update(horaire);
             await _context.SaveChangesAsync();
+            Singleton.Instance.Log("Horaire modifié");
 
             return RedirectToAction(nameof(Index));
         }
@@ -222,11 +226,15 @@ namespace AnimalCareApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var horaire = await _context.Horaires.FindAsync(id);
+            var horaire = await _context.Horaires
+    .Include(h => h.IdVeterinaireNavigation)
+    .ThenInclude(v => v.IdUtilisateurNavigation)
+    .FirstOrDefaultAsync(m => m.IdHoraire == id);
             if (horaire != null)
             {
                 _context.Horaires.Remove(horaire);
                 await _context.SaveChangesAsync();
+                Singleton.Instance.Log("Horaire supprimé");
             }
 
             return RedirectToAction(nameof(Index));

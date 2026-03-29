@@ -20,4 +20,6 @@ public partial class Utilisateur
     public virtual Role IdRoleNavigation { get; set; } = null!;
 
     public virtual Veterinaire? Veterinaire { get; set; }
+
+    public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 }

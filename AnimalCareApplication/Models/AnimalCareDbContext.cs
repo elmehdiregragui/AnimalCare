@@ -35,7 +35,10 @@ public partial class AnimalCareDbContext : DbContext
 
     public virtual DbSet<Veterinaire> Veterinaires { get; set; }
 
-   
+    public virtual DbSet<Notification> Notifications { get; set; }
+
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -114,16 +117,19 @@ public partial class AnimalCareDbContext : DbContext
             entity.Property(e => e.Heure).HasPrecision(0);
             entity.Property(e => e.Statut).HasMaxLength(20);
 
+            entity.HasIndex(e => new { e.IdVeterinaire, e.DateRv, e.Heure })
+                  .IsUnique()
+                  .HasDatabaseName("UX_RendezVous_Veterinaire_Date_Heure");
+
             entity.HasOne(d => d.IdAnimalNavigation).WithMany(p => p.RendezVous)
                 .HasForeignKey(d => d.IdAnimal)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_RendezVous_Animal");
 
             entity.HasOne(d => d.IdVeterinaireNavigation)
-    .WithMany(p => p.RendezVous)  
-    .HasForeignKey(d => d.IdVeterinaire)
-    .HasConstraintName("FK_RendezVous_Veterinaire");
-
+                .WithMany(p => p.RendezVous)
+                .HasForeignKey(d => d.IdVeterinaire)
+                .HasConstraintName("FK_RendezVous_Veterinaire");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -182,6 +188,23 @@ public partial class AnimalCareDbContext : DbContext
             entity.Property(e => e.PrenomProprietaire).HasMaxLength(50);
             entity.Property(e => e.PrenomVeterinaire).HasMaxLength(50);
             entity.Property(e => e.Statut).HasMaxLength(20);
+        });
+
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.IdNotification);
+
+            entity.ToTable("Notification");
+
+            entity.Property(e => e.Message).HasMaxLength(255);
+
+            entity.Property(e => e.DateCreation).HasColumnType("datetime");
+
+            entity.HasOne(d => d.IdUtilisateurNavigation)
+                .WithMany(p => p.Notifications)
+                .HasForeignKey(d => d.IdUtilisateur)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Notification_Utilisateur");
         });
 
         modelBuilder.Entity<Veterinaire>(entity =>

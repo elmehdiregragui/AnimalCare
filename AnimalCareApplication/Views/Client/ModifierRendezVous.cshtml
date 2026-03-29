@@ -4,41 +4,166 @@
     ViewData["Title"] = "Modifier rendez-vous";
 }
 
-<div class="form-page">
-    <div class="form-card">
+<div class="container mt-4" style="max-width:700px;">
+    <h2 class="mb-3 text-center">Modifier un rendez-vous</h2>
 
-        <h2>Modifier un rendez-vous</h2>
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-        <form asp-action="ModifierRendezVous" method="post">
-            @Html.AntiForgeryToken()
+    <form asp-action="ModifierRendezVous" method="post">
+        @Html.AntiForgeryToken()
 
-            <input type="hidden" asp-for="IdRendezVous" />
+        <input type="hidden" asp-for="IdRendezVous" />
 
-            <div class="form-group mb-3">
-                <label>Date</label>
-                <input asp-for="DateRv" type="date" class="form-control" />
+        <div class="mb-3">
+            <label class="form-label">Animal</label>
+            <select asp-for="IdAnimal" asp-items="Model.Animaux" class="form-select">
+                <option value="">-- Sélectionnez un animal --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Vétérinaire</label>
+            <select asp-for="IdVeterinaire" asp-items="Model.Veterinaires" class="form-select" id="vetSelect">
+                <option value="">-- Sélectionnez un vétérinaire --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input asp-for="DateRv" type="date" class="form-control" id="dateInput" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Heure choisie</label>
+            <input asp-for="Heure" type="hidden" id="heureInput" />
+            <input type="text" id="heureAffichee" class="form-control" readonly value="@Model.Heure.ToString(@"hh\:mm")" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Créneaux disponibles</label>
+            <div id="creneauxContainer" class="d-flex flex-wrap gap-2"></div>
+            <small class="text-muted d-block mt-2">
+                Gris = déjà pris / Bleu = disponible / Vert = sélectionné
+            </small>
+        </div>
+
+        <div class="d-flex align-items-end gap-2 mt-2">
+
+            <div>
+                <label class="form-label">État du rendez-vous</label>
+                <select asp-for="Etat" class="form-select">
+                    <option value="Prévu">Prévu</option>
+                    <option value="Confirmé">Confirmé</option>
+                    <option value="Annulé">Annulé</option>
+                </select>
             </div>
 
-            <div class="form-group mb-3">
-                <label>Heure</label>
-                <input asp-for="Heure" type="time" class="form-control" />
-            </div>
+            <button type="submit" class="btn btn-primary">
+                Enregistrer
+            </button>
 
-            <div class="form-group mb-3">
-                <label>Animal</label>
-                <select asp-for="IdAnimal" asp-items="Model.Animaux" class="form-control"></select>
-            </div>
+            <a asp-action="MesRendezVous" class="btn btn-secondary">
+                Annuler
+            </a>
 
-            <div class="form-group mb-4">
-                <label>Vétérinaire</label>
-                <select asp-for="IdVeterinaire" asp-items="Model.Veterinaires" class="form-control"></select>
-            </div>
-
-            <div class="form-actions">
-                <button type="submit" class="btn-main">Enregistrer</button>
-                <a asp-action="MesRendezVous" class="btn-cancel">Annuler</a>
-            </div>
-        </form>
-
-    </div>
+        </div>
+    </form>
 </div>
+
+<style>
+    .creneau-btn {
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        min-width: 90px;
+        font-weight: 500;
+    }
+
+    .creneau-dispo {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .creneau-pris {
+        background-color: #cfcfcf;
+        color: #666;
+        cursor: not-allowed;
+    }
+
+    .creneau-selectionne {
+        background-color: #198754 !important;
+        color: white;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const vetSelect = document.getElementById("vetSelect");
+        const dateInput = document.getElementById("dateInput");
+        const heureInput = document.getElementById("heureInput");
+        const heureAffichee = document.getElementById("heureAffichee");
+        const creneauxContainer = document.getElementById("creneauxContainer");
+        const idRendezVous = @Model.IdRendezVous;
+        const heureActuelle = "@Model.Heure.ToString(@"hh\:mm")";
+
+        async function chargerCreneaux() {
+            const vetId = vetSelect.value;
+            const date = dateInput.value;
+
+            creneauxContainer.innerHTML = "";
+            heureInput.value = heureActuelle;
+
+            if (!vetId || !date) {
+                return;
+            }
+
+            const response = await fetch(`/Client/GetCreneauxDisponibles?idVeterinaire=${vetId}&dateRv=${date}&idRendezVous=${idRendezVous}`);
+            const data = await response.json();
+
+            if (!data || data.length === 0) {
+                creneauxContainer.innerHTML = `<div class="text-danger">Aucun créneau disponible pour cette date.</div>`;
+                return;
+            }
+
+            data.forEach(item => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.textContent = item.heure;
+                btn.classList.add("creneau-btn");
+
+                if (item.disponible) {
+                    btn.classList.add("creneau-dispo");
+
+                    if (item.heure === heureActuelle) {
+                        btn.classList.add("creneau-selectionne");
+                    }
+
+                    btn.addEventListener("click", function () {
+                        document.querySelectorAll(".creneau-btn").forEach(x => {
+                            x.classList.remove("creneau-selectionne");
+                        });
+
+                        btn.classList.add("creneau-selectionne");
+                        heureInput.value = item.heure;
+                        heureAffichee.value = item.heure;
+                    });
+                } else {
+                    btn.classList.add("creneau-pris");
+                    btn.disabled = true;
+                }
+
+                creneauxContainer.appendChild(btn);
+            });
+        }
+
+        vetSelect.addEventListener("change", chargerCreneaux);
+        dateInput.addEventListener("change", chargerCreneaux);
+
+        window.addEventListener("load", chargerCreneaux);
+    </script>
+}

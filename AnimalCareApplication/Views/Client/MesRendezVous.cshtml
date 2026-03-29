@@ -6,6 +6,7 @@
             <th>Date</th>
             <th>Heure</th>
             <th>Statut</th>
+            <th>État</th>
             <th>Animal</th>
             <th>Vétérinaire</th>
             <th class="text-center">Actions</th>
@@ -15,15 +16,19 @@
     <tbody>
         @foreach (var item in Model)
         {
+            var nomVet = item.IdVeterinaireNavigation != null && item.IdVeterinaireNavigation.IdUtilisateurNavigation != null
+            ? item.IdVeterinaireNavigation.IdUtilisateurNavigation.Prenom + " " + item.IdVeterinaireNavigation.IdUtilisateurNavigation.Nom
+            : "Non défini";
+
             <tr>
                 <td>@item.DateRv.ToString("dd/MM/yyyy")</td>
-                <td>@item.Heure</td>
+                <td>@item.Heure.ToString(@"hh\:mm")</td>
+
                 <td>@item.Statut</td>
-                <td>@item.IdAnimalNavigation?.Nom</td>
-                <td>
-                    @item.IdVeterinaireNavigation?.IdUtilisateurNavigation?.Prenom
-                    @item.IdVeterinaireNavigation?.IdUtilisateurNavigation?.Nom
-                </td>
+                <td>@item.Etat</td>
+
+                <td>@(item.IdAnimalNavigation?.Nom ?? "Animal inconnu")</td>
+                <td>@nomVet</td>
 
                 <td class="text-center">
                     <a asp-controller="Client"

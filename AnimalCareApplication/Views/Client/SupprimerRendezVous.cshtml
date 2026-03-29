@@ -2,6 +2,10 @@
 
 @{
     ViewData["Title"] = "Supprimer rendez-vous";
+
+    var nomVet = Model.IdVeterinaireNavigation != null && Model.IdVeterinaireNavigation.IdUtilisateurNavigation != null
+        ? Model.IdVeterinaireNavigation.IdUtilisateurNavigation.Prenom + " " + Model.IdVeterinaireNavigation.IdUtilisateurNavigation.Nom
+        : "Non défini";
 }
 
 <div class="form-page">
@@ -15,12 +19,10 @@
 
         <div class="mb-4">
             <strong>Date :</strong> @Model.DateRv.ToString("dd/MM/yyyy") <br />
-            <strong>Heure :</strong> @Model.Heure <br />
+            <strong>Heure :</strong> @Model.Heure.ToString(@"hh\:mm") <br />
             <strong>Statut :</strong> @Model.Statut <br />
-            <strong>Animal :</strong> @Model.IdAnimalNavigation?.Nom <br />
-            <strong>Vétérinaire :</strong>
-            @Model.IdVeterinaireNavigation?.IdUtilisateurNavigation?.Prenom
-            @Model.IdVeterinaireNavigation?.IdUtilisateurNavigation?.Nom
+            <strong>Animal :</strong> @(Model.IdAnimalNavigation?.Nom ?? "Animal inconnu") <br />
+            <strong>Vétérinaire :</strong> @nomVet
         </div>
 
         <form asp-action="SupprimerRendezVous" method="post">

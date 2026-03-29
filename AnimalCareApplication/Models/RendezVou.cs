@@ -10,6 +10,7 @@ namespace AnimalCareApplication.Models
         public DateTime DateRv { get; set; }
         public TimeSpan Heure { get; set; }
         public string Statut { get; set; } = string.Empty;
+        public string Etat { get; set; } = "Prévu";
         public int IdAnimal { get; set; }
         public int IdVeterinaire { get; set; }
 

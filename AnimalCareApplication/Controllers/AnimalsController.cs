@@ -23,9 +23,11 @@ namespace AnimalCareApplication.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var animalCareDbContext = _context.Animals
-                .Include(a => a.IdProprietaireNavigation);
-            return View(await animalCareDbContext.ToListAsync());
+            var animaux = await _context.Animals
+    .Include(a => a.IdProprietaireNavigation)
+    .ToListAsync();
+
+            return View(animaux);
         }
 
         
