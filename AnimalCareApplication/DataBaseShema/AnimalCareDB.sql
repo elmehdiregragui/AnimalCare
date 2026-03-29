@@ -6,6 +6,7 @@ GO
 
 CREATE DATABASE AnimalCareDB;
 GO
+                   
 
 USE AnimalCareDB;
 GO
