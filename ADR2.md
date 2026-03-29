@@ -82,7 +82,6 @@ l’architecture.
 ---
 
 ## 7. Validation
-- **Comment vérifier que c’est bon ?**
   - Le système est accessible via un navigateur  
   - Les rôles utilisateurs sont clairement définis  
   - Le prototype répond aux besoins de base
