@@ -34,8 +34,6 @@ Cela inclut les entités suivants :
 - RendezVous
 - Horaire
 
-Cette amélioration permet d’assurer une meilleure cohérence entre la documentation du projet et son implémentation.
-
 
 ## 5. Ajout d'un ADR
 Pour mieux documenter les décisions techniques, un ADR ont été ajouté.  
