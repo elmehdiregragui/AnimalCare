@@ -27,12 +27,12 @@ Cette correction améliore la lisibilitéet facilite la compréhension de l’ar
 Les principales entités métier sont définies dans le SRS ont été ajoutées dans le code du projet.  
 Cela inclut les entités suivants :
 
-- `Utilisateur`
-- `Proprietaire`
-- `Animal`
-- `Veterinaire`
-- `RendezVous`
-- `Horaire`
+- Utilisateur
+- Proprietaire
+- Animal
+- Veterinaire
+- RendezVous
+- Horaire
 
 Cette amélioration permet d’assurer une meilleure cohérence entre la documentation du projet et son implémentation.
 
