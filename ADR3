@@ -7,7 +7,7 @@ ADR-002 — Choix de l’architecture et des Design Patterns
 **Décideurs :** Équipe du projet  
 **Contexte projet :** Organisation de l’architecture du système AnimalCare
 
----
+
 
 ## 1. Contexte
 - **Problème / besoin :**  
@@ -22,7 +22,6 @@ Projet académique, temps limité, besoin d’un code lisible et maintenable.
 - **Forces en présence :**  
 Maintenabilité et démonstration de design patterns.
 
----
 
 ## 2. Décision
 > L’application adopte une architecture MVC combinée à l’utilisation de Design Patterns.
@@ -30,7 +29,7 @@ Maintenabilité et démonstration de design patterns.
 - Je choisis : Architecture MVC et les designs Patterns (Singleton, Observer, Strategy, Decorator)  
 - Pour : améliorer l’organisation, la flexibilité et la maintenabilité du code
 
----
+
 
 ## 3. Alternatives considérées
 
@@ -50,7 +49,6 @@ Maintenabilité et démonstration de design patterns.
   - Complexité plus élevée  
   - Plus de fichiers à gérer
 
----
 
 ## 4. Justification
 - MVC permet de séparer la logique métier, l’interface et les données  
@@ -58,7 +56,6 @@ Maintenabilité et démonstration de design patterns.
 - Le projet devient plus structuré et évolutif  
 - Cette décision respecte les bonnes pratiques de développement
 
----
 
 ## 5. Conséquences
 
@@ -76,16 +73,14 @@ Maintenabilité et démonstration de design patterns.
 - Ajout d’un dossier Patterns  
 - Implémentation des interfaces et classes abstraites
 
----
 
 ## 6. Plan d’implémentation
--  Définir les modèles (Models)  
+-  Définir les modèles  
 -  Créer les contrôleurs  
 -  Implémenter les vues  
 -  Ajouter les design patterns  
 -  Tester l’intégration globale
 
----
 
 ## 7. Validation
   - L’application respecte l’architecture MVC  
@@ -93,4 +88,3 @@ Maintenabilité et démonstration de design patterns.
   - Les responsabilités sont bien séparées  
   - Le système est fonctionnable
 
----
