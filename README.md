@@ -66,5 +66,5 @@ namespace AnimalCareApplication.Patterns.Singleton
         }
     }
 }
-Exemple d'utilisation
+## Exemple d'utilisation
 Singleton.Instance.Log("Rendez-vous ajouté");
