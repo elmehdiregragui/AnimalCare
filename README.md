@@ -66,6 +66,7 @@ namespace AnimalCareApplication.Patterns.Singleton
         }
     }
 }
+
 ## 2. Observer Pattern
 
 ### Objectif
