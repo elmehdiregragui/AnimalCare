@@ -50,7 +50,7 @@ l’architecture.
 
 ---
 
-## 4. Justification (Pourquoi cette décision ?)
+## 4. Justification 
 - Accès simple pour tous les rôles utilisateurs  
 - Maintenance et déploiement facilités  
 - Adapté aux contraintes du projet académique
@@ -68,13 +68,13 @@ l’architecture.
 - Dépendance à la connexion internet  
 - Sécurité à prendre en compte dès les phases suivantes
 
-### Impact sur l’architecture / le code
+### Impact sur l’architecture
 - Mise en place d’une architecture en couches  
 - Séparation entre interface web, logique métier et données
 
 ---
 
-## 6. Plan d’implémentation (court)
+## 6. Plan d’implémentation
 -  Définir l’architecture générale  
 -  Identifier les rôles et permissions  
 -  Implémenter un prototype web simple
