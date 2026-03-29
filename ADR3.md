@@ -68,7 +68,7 @@ Utilisation et démonstration de design patterns.
 - Complexité supplémentaire  
 - Temps de développement plus long
 
-### Impact sur l’architecture / le code
+### Impact sur l’architecture 
 - Séparation en Models, Views et Controllers  
 - Ajout d’un dossier Patterns  
 - Implémentation des interfaces et classes abstraites
