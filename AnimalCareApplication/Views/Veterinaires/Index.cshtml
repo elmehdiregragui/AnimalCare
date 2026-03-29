@@ -27,15 +27,15 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <!-- Nom + Prénom -->
+                        
                         <td class="fw-semibold">
                             @item.IdUtilisateurNavigation.Prenom @item.IdUtilisateurNavigation.Nom
                         </td>
 
-                        <!-- Spécialité -->
+                       
                         <td>@item.Specialite</td>
 
-                        <!-- Actions -->
+                        
                         <td class="text-center">
                             <a asp-action="Edit" asp-route-id="@item.IdVeterinaire" class="btn btn-sm btn-primary">Modifier</a>
                             <a asp-action="Details" asp-route-id="@item.IdVeterinaire" class="btn btn-sm btn-info text-white">Détails</a>

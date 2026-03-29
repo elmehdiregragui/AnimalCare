@@ -9,7 +9,7 @@ public partial class AnimalCareDbContext : DbContext
     public AnimalCareDbContext()
     {
     }
-
+    
     public AnimalCareDbContext(DbContextOptions<AnimalCareDbContext> options)
         : base(options)
     {

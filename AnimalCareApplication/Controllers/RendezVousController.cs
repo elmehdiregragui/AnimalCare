@@ -279,7 +279,7 @@ namespace AnimalCareApplication.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-
+            
             ViewBag.Role = role;
             ViewData["IdAnimal"] = new SelectList(_context.Animals, "IdAnimal", "Nom", rendezVou.IdAnimal);
 

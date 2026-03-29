@@ -12,7 +12,7 @@ public partial class Historique
     public string Description { get; set; } = null!;
 
     public int IdAnimal { get; set; }
-
+    
     public int IdVeterinaire { get; set; }
 
     public virtual Animal IdAnimalNavigation { get; set; } = null!;

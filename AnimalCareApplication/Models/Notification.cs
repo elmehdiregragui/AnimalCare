@@ -7,7 +7,7 @@ namespace AnimalCareApplication.Models
         public int IdNotification { get; set; }
 
         public int IdUtilisateur { get; set; }
-
+        
         public string Message { get; set; } = string.Empty;
 
         public bool EstLue { get; set; } = false;

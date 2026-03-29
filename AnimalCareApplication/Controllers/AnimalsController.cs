@@ -30,7 +30,7 @@ namespace AnimalCareApplication.Controllers
             return View(animaux);
         }
 
-        
+       
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Animals == null)

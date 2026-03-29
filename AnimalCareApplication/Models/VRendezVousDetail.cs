@@ -20,6 +20,6 @@ public partial class VRendezVousDetail
     public string PrenomProprietaire { get; set; } = null!;
 
     public string NomVeterinaire { get; set; } = null!;
-
+    
     public string PrenomVeterinaire { get; set; } = null!;
 }

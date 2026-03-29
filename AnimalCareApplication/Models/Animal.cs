@@ -10,7 +10,7 @@ public partial class Animal
     public string Nom { get; set; } = null!;
 
     public string Espece { get; set; } = null!;
-
+    
     public string? Race { get; set; }
 
     public int? Age { get; set; }
