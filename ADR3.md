@@ -20,7 +20,7 @@ et faciliter l’évolution du système.
 Projet académique, temps limité, besoin d’un code lisible et maintenable.
 
 - **Forces en présence :**  
-Maintenabilité et démonstration de design patterns.
+Utilisation et démonstration de design patterns.
 
 
 ## 2. Décision
