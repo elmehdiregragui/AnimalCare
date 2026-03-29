@@ -49,6 +49,7 @@ Cela rend la documentation plus complète et montre mieux la réflexion techniqu
 
 
 ### Diagramme de classes
+![Diagramme de classes](DiagrammeDeClasseAnimalCare.jpg)
 Le diagramme de classes montre les principales classes du projet, leurs attributs, leurs méthodes ainsi que les relations entre elles.  
 Il permet de visualiser l’héritage, les associations et l’organisation générale du système.
 
