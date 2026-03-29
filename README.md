@@ -66,5 +66,68 @@ namespace AnimalCareApplication.Patterns.Singleton
         }
     }
 }
-## Exemple d'utilisation
-Singleton.Instance.Log("Rendez-vous ajouté");
+## 2. Observer Pattern
+
+### Objectif
+Notifier automatiquement les utilisateurs lorsqu'un événement se produit.
+
+### Utilisation dans le projet
+Utilisé pour envoyer des notifications lors de la création ou modification d’un rendez-vous.
+
+### Extrait du code
+
+```csharp
+namespace AnimalCareApplication.Patterns.Observer
+{
+    public interface IObserver
+    {
+        void Update(string message);
+    }
+}
+
+namespace AnimalCareApplication.Patterns.Observer
+{
+    public interface ISubject
+    {
+        void Attach(IObserver observer);
+        void Detach(IObserver observer);
+        void Notify();
+    }
+}
+
+using System.Collections.Generic;
+
+namespace AnimalCareApplication.Patterns.Observer
+{
+    public class RendezVousSubject : ISubject
+    {
+        private readonly List<IObserver> _observers = new();
+        private string _message;
+
+        public void Attach(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void SetMessage(string message)
+        {
+            _message = message;
+            Notify();
+        }
+
+        public void Notify()
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Update(_message);
+            }
+        }
+    }
+}
+
+
