@@ -54,6 +54,7 @@ Le diagramme de classes montre les principales classes du projet, leurs attribut
 Il permet de visualiser l’héritage, les associations et l’organisation générale du système.
 
 ### Diagramme de cas d’utilisation
+![Diagramme de cas d'utilisation](DiagrammeDeCasDutilisationAnimalCare.jpg)
 Le diagramme de cas d’utilisation montre les différents acteurs du système et les principales actions qu’ils peuvent réaliser.  
 Il permet d’illustrer les fonctionnalités accessibles à chaque rôle, comme l’administrateur, la réceptionniste, le vétérinaire et le client.
 
