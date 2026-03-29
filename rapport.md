@@ -13,7 +13,7 @@ Certaines relations qui n’étaient pas valides ont aussi été modifiées pour
 
 ## 2. Déclaration des classes abstraites
 La classes qui devait être abstraite a été identifiée.  
-La classe `Utilisateur` a été déclarée comme classe abstraite, car elle représente une base pour plusieurs types d’utilisateurs du système.  
+La classe Utilisateur a été déclarée comme classe abstraite, car elle représente une base pour plusieurs types d’utilisateurs du système.  
 Cela permet de mieux représenter la hiérarchie entre les rôles comme Administrateur, Réceptionniste, Vétérinaire et Client.
 
 
