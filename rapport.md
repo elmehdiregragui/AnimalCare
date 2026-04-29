@@ -1,63 +1,250 @@
-# Rapport de corrections – Projet AnimalCare
+# 📄 Rapport détaillé – Projet AnimalCare
 
-## Introduction
-À la suite des commentaires reçus sur le proje plusieurs correctionss ont été faites afin de mieux respecter les exigences du cours et de rendre le projet plus clair sur le plan technique.  
-Ce rapport présente de manière simple les principales tâches réalisées.
+## 1. Introduction
 
+Le projet AnimalCare est une application web développée dans le cadre du cours de génie logiciel.  
+Son objectif principal est de faciliter la gestion d’une clinique vétérinaire en centralisant toutes les informations liées aux utilisateurs, aux animaux, aux vétérinaires et aux rendez-vous.
 
-## 1. Correction de la notation UML
-La notation UML a été corrigée afin de respecter les règles des notions UML.  
-Les relations d’héritage ont été coorigées et les flèches ont été remplacées par des notations UML correctes.  
-Certaines relations qui n’étaient pas valides ont aussi été modifiées pour rendre le diagramme plus clair et plus professionnel.
+Selon le SRS, le système vise à « soutenir la gestion des rendez-vous, des animaux, des propriétaires et des vétérinaires » :contentReference[oaicite:0]{index=0}  
 
+Ce rapport présente :
+- le cahier des charges
+- la solution proposée
+- les choix techniques et architecturaux
+- les design patterns utilisés
+- les contraintes du projet
 
-## 2. Déclaration des classes abstraites
-La classes qui devait être abstraite a été identifiée.  
-La classe Utilisateur a été déclarée comme classe abstraite, car elle représente une base pour plusieurs types d’utilisateurs du système.  
-Cela permet de mieux représenter la hiérarchie entre les rôles comme Administrateur, Réceptionniste, Vétérinaire et Client.
+---
 
+## 2. Cahier des charges (SRS)
 
-## 3. Remplacement des relations UML non valides
-Les relations UML non valides ont été remplacées par des relations correctes.  
-Les associations et héritages ont été réorganisés pour mieux représenter le fonctionnement du projet.  
-Cette correction améliore la lisibilitéet facilite la compréhension de l’architecture.
+### 2.1 Objectif du système
 
+L’objectif principal est de fournir une plateforme web permettant une gestion centralisée et efficace des activités d’une clinique vétérinaire.
 
-## 4. Ajout des entités métier du SRS dans le code
-Les principales entités métier sont définies dans le SRS ont été ajoutées dans le code du projet.  
-Cela inclut les entités suivants :
+Cela signifie que :
+- toutes les données sont regroupées dans un seul système
+- les utilisateurs peuvent accéder facilement aux informations
+- la gestion devient plus rapide et plus organisée
 
-- Utilisateur
+---
+
+### 2.2 Utilisateurs du système
+
+Le système gère plusieurs types d’utilisateurs :
+
+- Administrateur : gestion complète du système
+- Réceptionniste : gestion des rendez-vous
+- Vétérinaire : consultation du planning
+- Client : prise et consultation de rendez-vous
+
+👉 Cette diversité d’utilisateurs justifie la nécessité d’un système centralisé et sécurisé.
+
+---
+
+### 2.3 Fonctionnalités principales
+
+Les fonctionnalités principales sont :
+
+- Gestion des rendez-vous
+- Gestion des animaux
+- Gestion des propriétaires
+- Gestion des vétérinaires
+- Gestion des horaires
+- Consultation du planning
+
+👉 Ces fonctionnalités représentent le cœur du système.
+
+---
+
+### 2.4 Exigences fonctionnelles importantes
+
+Exemple :
+
+#### FR-01 : Gestion des rendez-vous
+- Création, modification et suppression
+- Vérification des conflits
+- Association à un animal et un vétérinaire
+
+#### FR-02 : Vérification des disponibilités
+- Contrôle automatique des horaires
+- Aucun conflit autorisé
+
+#### FR-03 : Gestion des animaux
+- Association avec un propriétaire
+- Données obligatoires (nom, espèce…)
+
+#### FR-04 : Consultation du planning
+- Accès uniquement au vétérinaire concerné
+
+👉 Ces règles garantissent la cohérence du système.
+
+---
+
+## 3. Contraintes du projet
+
+### 3.1 Contraintes générales
+- Projet académique
+- Temps limité
+- Respect des bonnes pratiques
+- Développement progressif
+
+### 3.2 Contraintes techniques
+- Application web obligatoire
+- Compatibilité navigateur
+- Architecture MVC
+
+### 3.3 Contraintes non fonctionnelles
+- Authentification sécurisée
+- Temps de réponse < 3 secondes
+- Interface simple (max 4 étapes pour créer un rendez-vous)
+
+👉 Ces contraintes influencent directement les choix techniques.
+
+---
+
+## 4. Solution proposée
+
+### 4.1 Choix du type d’application (ADR-001)
+
+Selon l’ADR-001, le choix s’est porté sur une application web.
+
+**Décision :**
+> Le système sera développé sous forme d’une application web :contentReference[oaicite:1]{index=1}  
+
+### Raisons :
+- accès simple via navigateur
+- aucune installation
+- centralisation des données
+
+### Alternatives rejetées :
+- application desktop (plus complexe à maintenir)
+
+👉 Ce choix est adapté au contexte académique et aux besoins des utilisateurs.
+
+---
+
+### 4.2 Conséquences de ce choix
+
+#### Positives :
+- accès depuis n’importe quel appareil
+- facilité de mise à jour
+- système centralisé
+
+#### Négatives :
+- dépendance à internet
+- sécurité à gérer
+
+---
+
+## 5. Architecture du système (ADR-002)
+
+### 5.1 Choix de l’architecture
+
+Selon l’ADR-002 :
+
+> L’application adopte une architecture MVC combinée aux Design Patterns :contentReference[oaicite:2]{index=2}  
+
+### Pourquoi MVC ?
+- séparation des responsabilités
+- code plus organisé
+- facilité de maintenance
+
+---
+
+### 5.2 Structure MVC
+
+- **Model** : données (Animal, RendezVous…)
+- **View** : interface utilisateur
+- **Controller** : logique métier
+
+👉 Cette structure rend le projet plus propre et évolutif.
+
+---
+
+## 6. Design Patterns utilisés
+
+### 6.1 Singleton
+- utilisé pour le Logger
+- permet une seule instance
+
+👉 évite la duplication et centralise les logs
+
+---
+
+### 6.2 Observer
+- utilisé pour les notifications
+- déclenché lors d’un changement (ex : rendez-vous)
+
+👉 permet de notifier automatiquement les utilisateurs
+
+---
+
+### 6.3 Strategy
+- utilisé pour définir le statut d’un rendez-vous
+- exemple : urgent ou normal
+
+👉 permet de changer le comportement facilement
+
+---
+
+### 6.4 Decorator
+- utilisé pour ajouter des fonctionnalités
+- exemple : rappel de rendez-vous
+
+👉 permet d’ajouter des fonctionnalités sans modifier le code existant
+
+---
+
+## 7. Impact des choix techniques
+
+### Positifs :
+- code structuré
+- faible couplage
+- facilité de maintenance
+
+### Négatifs :
+- complexité plus élevée
+- plus de fichiers
+
+---
+
+## 8. Entités métier
+
+Les principales entités sont :
+
+- Utilisateur (abstraite)
 - Proprietaire
 - Animal
 - Veterinaire
 - RendezVous
 - Horaire
 
+👉 Elles sont directement issues du SRS et implémentées dans le code.
 
-## 5. Ajout d'un ADR
-Pour mieux documenter les décisions techniques, un ADR ont été ajouté.  
-Au lieu d’avoir un seul ADR, le projet contient maintenant plus décisions importantes liées :
+---
 
-- au choix du type d’application
-- au choix de l’architecture et des design patterns
-- au choix de des données
+## 9. Facilité d’exécution (README)
 
-Cela rend la documentation plus complète et montre mieux la réflexion technique derrière le projet.
+Le projet est conçu pour être facile à exécuter.
 
+### Étapes :
+1. Cloner le projet
+2. Ouvrir avec Visual Studio
+3. Lancer le fichier `.sln`
+4. Exécuter l’application
 
-### Diagramme de classes
-![Diagramme de classes](DiagrammeDeClasseAnimalCare.jpg)
-Le diagramme de classes montre les principales classes du projet, leurs attributs, leurs méthodes ainsi que les relations entre elles.  
-Il permet de visualiser l’héritage, les associations et l’organisation générale du système.
+👉 Cela respecte l’exigence d’un projet simple à utiliser.
 
-### Diagramme de cas d’utilisation
-![Diagramme de cas d'utilisation](DiagrammeDeCasDutilisationAnimalCare.jpg)
-Le diagramme de cas d’utilisation montre les différents acteurs du système et les principales actions qu’ils peuvent réaliser.  
-Il permet d’illustrer les fonctionnalités accessibles à chaque rôle, comme l’administrateur, la réceptionniste, le vétérinaire et le client.
+---
 
+## 10. Conclusion
 
-## Conclusion
-En résumé, les corrections apportées ont permis d’améliorer la qualité du projet sur plusieurs aspects.  
-La notation UML a été corrigée, les classes abstraites ont été précisées, les principales entités métier ont été intégrées, plusieurs ADR ont été ajoutés et les diagrammes essentiels ont été inclus dans le rapport.  
-Ces changements rendent le projet un plus complet et cohérent avec les attentes du cours.
+Le projet AnimalCare répond aux exigences du cahier des charges en proposant une solution web adaptée.
+
+Les choix techniques (MVC + Design Patterns) permettent :
+- une meilleure organisation
+- une bonne maintenabilité
+- une évolution facile du système
+
+Malgré une complexité plus élevée, ces choix sont justifiés et montrent une bonne compréhension des concepts de génie logiciel.
