@@ -213,29 +213,25 @@ Les principales entités sont :
 
 ![Diagramme de classes](DiagrammeDeClasseAnimalCare.jpg)
 
-Le diagramme de classes représente les différentes classes du système, leurs attributs, leurs méthodes ainsi que les relations entre elles.  
+Le diagramme de classes représente les classes du système, leurs attributs, leurs méthodes ainsi que les relations entre elles.  
 On peut y voir les relations d’héritage (comme la classe Utilisateur abstraite) ainsi que les associations entre les entités comme Animal, Vétérinaire et RendezVous.
 
----
 
 ### 9.2 Diagramme de cas d’utilisation
 
 ![Diagramme de cas d'utilisation](DiagrammeDeCasDutilisationAnimalCare.jpg)
 
-Le diagramme de cas d’utilisation montre les différents acteurs du système (Administrateur, Réceptionniste, Vétérinaire, Client) ainsi que les actions qu’ils peuvent effectuer.  
-Il permet de comprendre rapidement les fonctionnalités du système et les interactions entre les utilisateurs et l’application.
+Le diagramme de cas d’utilisation montre les acteurs du système (Administrateur, Réceptionniste, Vétérinaire, Client) ainsi que les actions qu’ils peuvent effectuer.  
+Il permet de comprendre les fonctionnalités du système et les interactions entre les utilisateurs et l’application.
 
----
 
 ### 9.3 Diagramme de séquence
 
 ![Diagramme de séquence](DiagrammeDeSequenceAnimalCare.jpg)
 
-Le diagramme de séquence illustre le déroulement d’une interaction dans le système, par exemple la création d’un rendez-vous.  
+Le diagramme de séquence explique le déroulement d’une interaction dans le système, par exemple la création d’un rendez-vous.  
 Il montre les échanges entre les différentes parties du système comme l’utilisateur, le contrôleur, le service métier et la base de données.  
-Ce diagramme permet de comprendre l’ordre des opérations et la communication entre les composants.
 
----
 
 ### 9.4 Diagramme de composants
 
@@ -247,8 +243,6 @@ Il montre les différents modules du système comme :
 - les contrôleurs (Controllers)
 - la logique métier (Services)
 - la base de données
-
-Ce diagramme permet de visualiser comment les différentes parties du système communiquent entre elles.
 
 
 ## 10. Facilité d’exécution
@@ -262,7 +256,6 @@ Le projet est conçu pour être facile à exécuter.
 4. Exécuter l’application
 
 
----
 
 ## 11. Conclusion
 
