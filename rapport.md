@@ -220,7 +220,7 @@ On peut y voir les relations d’héritage (comme la classe Utilisateur abstrait
 
 ### 9.2 Diagramme de cas d’utilisation
 
-![Diagramme de cas d'utilisation](DiagrammeDeCasDutilisationAnimalCare(1).jpg)
+![Diagramme de cas d'utilisation](DiagrammeDeCasDutilisationAnimalCare.jpg)
 
 Le diagramme de cas d’utilisation montre les différents acteurs du système (Administrateur, Réceptionniste, Vétérinaire, Client) ainsi que les actions qu’ils peuvent effectuer.  
 Il permet de comprendre rapidement les fonctionnalités du système et les interactions entre les utilisateurs et l’application.
