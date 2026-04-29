@@ -1,9 +1,9 @@
-# 📄 Rapport détaillé – Projet AnimalCare
+#  Rapport – Projet AnimalCare
 
 ## 1. Introduction
 
-Le projet AnimalCare est une application web développée dans le cadre du cours de génie logiciel.  
-Son objectif principal est de faciliter la gestion d’une clinique vétérinaire en centralisant toutes les informations liées aux utilisateurs, aux animaux, aux vétérinaires et aux rendez-vous.
+Le projet AnimalCare est une application web développée dans le cadre du cours implémentation d'un système d'information.  
+Son objectif principal est de faciliter la gestion d’une clinique vétérinaire en donnant toutes les informations liées aux utilisateurs, aux animaux, aux vétérinaires et aux rendez-vous.
 
 Selon le SRS, le système vise à « soutenir la gestion des rendez-vous, des animaux, des propriétaires et des vétérinaires » :contentReference[oaicite:0]{index=0}  
 
