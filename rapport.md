@@ -220,7 +220,7 @@ On peut y voir les relations d’héritage (comme la classe Utilisateur abstrait
 
 ### 9.2 Diagramme de cas d’utilisation
 
-![Diagramme de cas d'utilisation](DiagrammeDeCasDutilisationAnimalCare.jpg)
+![Diagramme de cas d'utilisation](DiagrammeDeCasDutilisationAnimalCare (1).jpg)
 
 Le diagramme de cas d’utilisation montre les différents acteurs du système (Administrateur, Réceptionniste, Vétérinaire, Client) ainsi que les actions qu’ils peuvent effectuer.  
 Il permet de comprendre rapidement les fonctionnalités du système et les interactions entre les utilisateurs et l’application.
@@ -229,7 +229,7 @@ Il permet de comprendre rapidement les fonctionnalités du système et les inter
 
 ### 9.3 Diagramme de séquence
 
-![Diagramme de séquence](DiagrammeSequenceAnimalCare.jpg)
+![Diagramme de séquence](DiagrammeDeSequenceAnimalCare.jpg)
 
 Le diagramme de séquence illustre le déroulement d’une interaction dans le système, par exemple la création d’un rendez-vous.  
 Il montre les échanges entre les différentes parties du système comme l’utilisateur, le contrôleur, le service métier et la base de données.  
@@ -239,7 +239,7 @@ Ce diagramme permet de comprendre l’ordre des opérations et la communication 
 
 ### 9.4 Diagramme de composants
 
-![Diagramme de composants](DiagrammeComposantsAnimalCare.jpg)
+![Diagramme de composants](DiagrammeDeComposantsAnimalCare.png)
 
 Le diagramme de composants représente l’architecture globale de l’application.  
 Il montre les différents modules du système comme :
